@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuItem?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.livreur.LivreurDashboardController">
+
+    <!-- Barre de navigation -->
+    <MenuBar>
+        <Menu text="Navigation">
+            <MenuItem text="Voir les Livraisons" onAction="#handleVoirLivraisons"/>
+            <MenuItem text="Voir les Paiements" onAction="#handleVoirPaiements"/>
+            <MenuItem text="Déconnexion" onAction="#handleDeconnexion"/>
+        </Menu>
+    </MenuBar>
+
+    <!-- Corps de l'interface -->
+    <VBox spacing="10"/>
+    <Label text="Tableau de Bord du Livreur"
+           style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-alignment: center;"/>
+
+    <!-- Vue des livraisons -->
+    <Label text="Livraisons Assignées" style="-fx-font-size: 18px;"/>
+    <TableView fx:id="tableViewLivraisons">
+        <!-- Colonnes du tableau des livraisons -->
+        <columns>
+            <TableColumn fx:id="livraisonId" text="ID Livraison" prefWidth="100"/>
+            <TableColumn fx:id="livraisonAdresse" text="Adresse" prefWidth="250"/>
+            <TableColumn fx:id="livraisonDate" text="Date Livraison" prefWidth="150"/>
+            <TableColumn fx:id="livraisonStatut" text="Statut" prefWidth="150"/>
+            <TableColumn fx:id="livraisonActions" text="Actions" prefWidth="150">
+                <cellValueFactory>
+                    <PropertyValueFactory property="actions"/>
+                </cellValueFactory>
+            </TableColumn>
+        </columns>
+    </TableView>
+
+    <!-- Vue des paiements -->
+    <Label text="Paiements Liés" style="-fx-font-size: 18px;"/>
+    <TableView fx:id="tableViewPaiements">
+        <!-- Colonnes du tableau des paiements -->
+        <columns>
+            <TableColumn fx:id="paiementId" text="ID Paiement" prefWidth="100"/>
+            <TableColumn fx:id="paiementMontant" text="Montant" prefWidth="150"/>
+            <TableColumn fx:id="paiementDate" text="Date Paiement" prefWidth="150"/>
+            <TableColumn fx:id="paiementStatut" text="Statut" prefWidth="150"/>
+        </columns>
+    </TableView>
+
+    <!-- Boutons d'actions supplémentaires -->
+    <HBox spacing="10" alignment="center">
+        <Button text="Marquer Livraison comme Complète" onAction="#handleMarquerLivraisonComplete"/>
+        <Button text="Afficher Détails Paiement" onAction="#handleAfficherDetailsPaiement"/>
+    </HBox>
+</AnchorPane>

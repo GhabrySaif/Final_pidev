@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefWidth="580.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.admin.AdminDashboardController">
+
+    <!-- Barre de navigation en haut -->
+    <top>
+        <HBox spacing="10" style="-fx-background-color: #333; -fx-padding: 10px;">
+
+            <!-- Espacement flexible -->
+            <Region HBox.hgrow="ALWAYS" />
+            <!-- Bouton Déconnexion aligné à gauche -->
+            <Button onAction="#handleLogout" style="-fx-background-color: red; -fx-text-fill: white; -fx-font-size: 14px;" text="Déconnexion" />
+        </HBox>
+    </top>
+
+    <!-- Contenu principal -->
+    <center>
+        <AnchorPane prefHeight="580.0" prefWidth="534.0" style="-fx-background-color: #f4f4f4; -fx-padding: 20px;">
+
+            <!-- Boutons centrés -->
+            <Button layoutX="163.0" layoutY="170.0" onAction="#handleManageUsers" prefHeight="30.0" prefWidth="121.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px;" text="Gérer Utilisateurs" />
+            <Button layoutX="290.0" layoutY="170.0" onAction="#handleTrackParcels" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px;" text="Suivi des Colis" />
+            <Button layoutX="165.0" layoutY="205.0" onAction="#handleManagePayments" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px;" text="Gérer Paiements" />
+            <Button layoutX="290.0" layoutY="205.0" onAction="#handleViewStats" prefHeight="30.0" prefWidth="107.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px;" text="Statistiques" />
+         <AnchorPane layoutX="-116.0" layoutY="2.0">
+            <children>
+                  <Label layoutX="167.0" layoutY="15.0" prefHeight="30.0" prefWidth="464.0" style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Bienvenue sur le tableau de bord administrateur" />
+            </children>
+         </AnchorPane>
+        </AnchorPane>
+    </center>
+</BorderPane>
