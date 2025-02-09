@@ -11,8 +11,8 @@
     <!-- Sidebar Menu -->
     <VBox fx:id="sideMenu" prefWidth="200.0" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0"
           AnchorPane.bottomAnchor="0" spacing="10.0" style="-fx-background-color: #f0f0f0;">
-        <Button fx:id="Gestion_Livreurs" onAction="#handleDeconnexion" text="Gestion des Livreurs" maxWidth="Infinity"/>
-        <Button fx:id="Gestion_Clients" onAction="#handleDeconnexion" text="Gestion des Clients" maxWidth="Infinity"/>
+        <Button fx:id="Gestion_Livreurs" onAction="#handleGestionLivreurs" text="Gestion des Livreurs" maxWidth="Infinity"/>
+        <Button fx:id="Gestion_Clients" onAction="#handleGestionClients" text="Gestion des Clients" maxWidth="Infinity"/>
         <Button fx:id="Gestion_Colis" onAction="#handleGestionColis" text="Gestion des Colis" maxWidth="Infinity"/>
         <Button fx:id="Statistiques" onAction="#handleDeconnexion" text="Statistiques" maxWidth="Infinity"/>
         <Button fx:id="Deconnexion" onAction="#handleDeconnexion" text="Déconnexion" maxWidth="Infinity"/>

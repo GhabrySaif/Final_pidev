@@ -38,9 +38,9 @@ public class ColisService {
     }
 
     // Méthode pour obtenir les colis d'un utilisateur spécifique
-    public List<Colis> obtenirColisParUtilisateur(int utilisateurId) {
-        return colisDAO.obtenirParUtilisateur(utilisateurId);
-    }
+//    public List<Colis> obtenirColisParUtilisateur(int utilisateurId) {
+//        return colisDAO.obtenirParUtilisateur(utilisateurId);
+//    }
 
     // Méthode pour changer le statut d'un colis
     public boolean changerStatutColis(int colisId, String statut) {

@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Label?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.admin.GestionColisController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" >
 
     <!-- Corps de l'interface -->
     <VBox spacing="10" AnchorPane.topAnchor="30" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.bottomAnchor="10">

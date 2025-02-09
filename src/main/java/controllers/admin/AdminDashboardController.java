@@ -30,8 +30,13 @@ public class AdminDashboardController {
     private AnchorPane contentPane; // Zone où charger les vues dynamiquement
 
     @FXML
+    private void handleGestionLivreurs(ActionEvent event) {
+        chargerVue("/gestion_Livreurs.fxml");
+    }
+
+    @FXML
     private void handleGestionClients(ActionEvent event) {
-        chargerVue("/GestionClients.fxml");
+        chargerVue("/gestion_Clients.fxml");
     }
 
     @FXML

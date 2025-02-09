@@ -70,7 +70,7 @@ public class LoginController {
         switch (utilisateur.getRole()) {
             case "admin" -> fxmlPath = "/admin_dashboard.fxml";
             case "livreur" -> fxmlPath = "/livreur_dashboard.fxml";
-            case "client" -> fxmlPath = "/client_dashboard.fxml";
+//            case "client" -> fxmlPath = "/client_dashboard.fxml";
         }
 
         // Vérifier si le fichier existe
