@@ -1,0 +1,51 @@
+/* Style général */
+AnchorPane {
+    -fx-background-color: #ffffff;
+}
+
+/* Style du titre Admin */
+Label {
+    -fx-font-family: 'Arial Black';
+    -fx-font-size: 31px;
+    -fx-text-fill: #0b6fbb;
+    -fx-alignment: center;
+}
+
+/* Style de la barre latérale */
+VBox {
+    -fx-background-color: #ffffff;
+    -fx-padding: 10px;
+    -fx-spacing: 10px;
+}
+
+/* Style des boutons */
+Button {
+    -fx-background-color: #0B6FBBFF;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-cursor: hand;
+}
+
+Button:hover {
+    -fx-background-color: #0B6FBBFF;
+}
+
+/* Style des ComboBox */
+ComboBox {
+    -fx-background-color: #0B6FBBFF;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+ComboBox:hover {
+    -fx-background-color: #0B6FBBFF;
+}
+
+ComboBox .list-cell {
+    -fx-text-fill: white;
+}

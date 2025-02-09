@@ -1,35 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 
-<BorderPane prefWidth="580.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.admin.AdminDashboardController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="800.0" stylesheets="Style.css"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.admin.AdminDashboardController">
 
-    <!-- Barre de navigation en haut -->
-    <top>
-        <HBox spacing="10" style="-fx-background-color: #333; -fx-padding: 10px;">
+    <!-- Sidebar Menu -->
+    <VBox fx:id="sideMenu" prefWidth="200.0" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0"
+          AnchorPane.bottomAnchor="0" spacing="10.0" style="-fx-background-color: #f0f0f0;">
+        <Button fx:id="Gestion_Livreurs" onAction="#handleDeconnexion" text="Gestion des Livreurs" maxWidth="Infinity"/>
+        <Button fx:id="Gestion_Clients" onAction="#handleDeconnexion" text="Gestion des Clients" maxWidth="Infinity"/>
+        <Button fx:id="Gestion_Colis" onAction="#handleGestionColis" text="Gestion des Colis" maxWidth="Infinity"/>
+        <Button fx:id="Statistiques" onAction="#handleDeconnexion" text="Statistiques" maxWidth="Infinity"/>
+        <Button fx:id="Deconnexion" onAction="#handleDeconnexion" text="Déconnexion" maxWidth="Infinity"/>
+    </VBox>
 
-            <!-- Espacement flexible -->
-            <Region HBox.hgrow="ALWAYS" />
-            <!-- Bouton Déconnexion aligné à gauche -->
-            <Button onAction="#handleLogout" style="-fx-background-color: red; -fx-text-fill: white; -fx-font-size: 14px;" text="Déconnexion" />
-        </HBox>
-    </top>
+    <!-- Content Pane (Main View) -->
+    <AnchorPane fx:id="contentPane" AnchorPane.topAnchor="0" AnchorPane.rightAnchor="0"
+                AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="200.0">
+    </AnchorPane>
 
-    <!-- Contenu principal -->
-    <center>
-        <AnchorPane prefHeight="580.0" prefWidth="534.0" style="-fx-background-color: #f4f4f4; -fx-padding: 20px;">
-
-            <!-- Boutons centrés -->
-            <Button layoutX="163.0" layoutY="170.0" onAction="#handleManageUsers" prefHeight="30.0" prefWidth="121.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px;" text="Gérer Utilisateurs" />
-            <Button layoutX="290.0" layoutY="170.0" onAction="#handleTrackParcels" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px;" text="Suivi des Colis" />
-            <Button layoutX="165.0" layoutY="205.0" onAction="#handleManagePayments" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px;" text="Gérer Paiements" />
-            <Button layoutX="290.0" layoutY="205.0" onAction="#handleViewStats" prefHeight="30.0" prefWidth="107.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px;" text="Statistiques" />
-         <AnchorPane layoutX="-116.0" layoutY="2.0">
-            <children>
-                  <Label layoutX="167.0" layoutY="15.0" prefHeight="30.0" prefWidth="464.0" style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Bienvenue sur le tableau de bord administrateur" />
-            </children>
-         </AnchorPane>
-        </AnchorPane>
-    </center>
-</BorderPane>
+</AnchorPane>

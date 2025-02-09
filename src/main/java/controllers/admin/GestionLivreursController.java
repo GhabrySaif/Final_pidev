@@ -12,7 +12,7 @@ import javafx.scene.control.TextField;
 import models.Utilisateur;
 import services.UtilisateurService;
 
-public class GestionUtilisateursController {
+public class GestionLivreursController {
 
     @FXML
     private ListView<Utilisateur> utilisateursListView;  // Liste des utilisateurs
@@ -34,7 +34,7 @@ public class GestionUtilisateursController {
     private final UtilisateurService utilisateurService;
     private ObservableList<Utilisateur> utilisateursList;
 
-    public GestionUtilisateursController() {
+    public GestionLivreursController() {
         utilisateurService = new UtilisateurService();
     }
 

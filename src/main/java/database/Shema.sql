@@ -17,13 +17,14 @@ CREATE TABLE IF NOT EXISTS utilisateurs (
 -- Création de la table Colis
 CREATE TABLE IF NOT EXISTS colis (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    poids DECIMAL(10, 2) NOT NULL,
-    volume DECIMAL(10, 2) NOT NULL,
+    name VARCHAR(255) NOT NULL UNIQUE,
     description TEXT,
-    date_envoi TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    statut ENUM('En attente', 'En transit', 'Livré', 'Annulé') NOT NULL,
-    utilisateur_id INT NOT NULL, 
-    FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id) ON DELETE CASCADE
+    date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    statut ENUM('En attente', 'En transit', 'Livré', 'Annulé') DEFAULT 'en attente'
+#     utilisateur_id INT NOT NULL,
+#     utilisateur_id INT NOT NULL,
+#     FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id) ON DELETE CASCADE,
+#     FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id) ON DELETE CASCADE
 );
 
 -- Création de la table Livraisons
