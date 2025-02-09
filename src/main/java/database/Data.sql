@@ -1,8 +1,7 @@
 -- Insertion des utilisateurs
 INSERT INTO utilisateurs (username, password, role, email, phone)
 VALUES ('admin', 'admin123', 'Admin', 'admin@example.com', '0123456789'),
-       ('livreur1', 'livreur123', 'Livreur', 'livreur1@example.com', '0987654321'),
-       ('client1', 'client123', 'Client', 'client1@example.com', '0678901234');
+       ('livreur1', 'livreur123', 'Livreur', 'livreur1@example.com', '0987654321');
 
 -- Insertion des colis
 INSERT INTO colis (poids, volume, description, statut, utilisateur_id)
