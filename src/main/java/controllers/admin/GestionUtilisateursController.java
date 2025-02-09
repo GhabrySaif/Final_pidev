@@ -85,7 +85,7 @@ public class GestionUtilisateursController {
         selectedUtilisateur.setEmail(email);
         selectedUtilisateur.setRole(role);
 
-        boolean updated = utilisateurService.mettreAJourUtilisateur(selectedUtilisateur.getId(),selectedUtilisateur.getUsername(),selectedUtilisateur.getEmail(),selectedUtilisateur.getMotDePasse(),selectedUtilisateur.getRole());
+        boolean updated = utilisateurService.mettreAJourUtilisateur(selectedUtilisateur.getId(),selectedUtilisateur.getUsername(),selectedUtilisateur.getEmail(),selectedUtilisateur.getPassword(),selectedUtilisateur.getRole());
 
         if (updated) {
             showAlert(AlertType.INFORMATION, "Utilisateur mis à jour", "Les informations de l'utilisateur ont été mises à jour.");
@@ -128,7 +128,7 @@ public class GestionUtilisateursController {
         }
 
         Utilisateur newUtilisateur = new Utilisateur(username, email, role);
-        boolean added = utilisateurService.ajouterUtilisateur(newUtilisateur.getUsername(),newUtilisateur.getEmail(),newUtilisateur.getMotDePasse(),newUtilisateur.getRole());
+        boolean added = utilisateurService.ajouterUtilisateur(newUtilisateur.getUsername(),newUtilisateur.getEmail(),newUtilisateur.getPassword(),newUtilisateur.getRole());
 
         if (added) {
             showAlert(AlertType.INFORMATION, "Utilisateur ajouté", "L'utilisateur a été ajouté avec succès.");

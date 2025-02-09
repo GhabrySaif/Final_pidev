@@ -22,7 +22,7 @@ public class UtilisateurDAO {
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, utilisateur.getUsername());
             stmt.setString(3, utilisateur.getEmail());
-            stmt.setString(4, utilisateur.getMotDePasse());
+            stmt.setString(4, utilisateur.getPassword());
             stmt.setString(5, utilisateur.getRole());
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -37,7 +37,7 @@ public class UtilisateurDAO {
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, utilisateur.getUsername());
             stmt.setString(3, utilisateur.getEmail());
-            stmt.setString(4, utilisateur.getMotDePasse());
+            stmt.setString(4, utilisateur.getPassword());
             stmt.setString(5, utilisateur.getRole());
             stmt.setInt(6, utilisateur.getId());
             return stmt.executeUpdate() > 0;

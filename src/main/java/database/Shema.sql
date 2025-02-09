@@ -1,3 +1,7 @@
+-- Création de la base de données
+CREATE DATABASE IF NOT EXISTS gestion_colis;
+USE pidev;
+
 -- Création de la table Utilisateurs
 CREATE TABLE IF NOT EXISTS utilisateurs (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -33,16 +37,6 @@ CREATE TABLE IF NOT EXISTS livraisons (
     FOREIGN KEY (livreur_id) REFERENCES utilisateurs(id) ON DELETE CASCADE
 );
 
--- Création de la table Paiements
-CREATE TABLE IF NOT EXISTS paiements (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    colis_id INT NOT NULL,
-    montant DECIMAL(10, 2) NOT NULL,
-    date_paiement TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    statut ENUM('Payé', 'En attente', 'Non payé') NOT NULL,
-    FOREIGN KEY (colis_id) REFERENCES colis(id) ON DELETE CASCADE
-);
-
 -- Création de la table Historique des livraisons
 CREATE TABLE IF NOT EXISTS historique_livraisons (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -50,17 +44,6 @@ CREATE TABLE IF NOT EXISTS historique_livraisons (
     statut VARCHAR(255) NOT NULL,
     date_heure TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (livraison_id) REFERENCES livraisons(id) ON DELETE CASCADE
-);
-
--- Création de la table Factures
-CREATE TABLE IF NOT EXISTS factures (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    colis_id INT NOT NULL,
-    montant DECIMAL(10, 2) NOT NULL,
-    date_emission TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    date_echeance datetime,
-    statut ENUM('Payée', 'En attente', 'Non payée') NOT NULL,
-    FOREIGN KEY (colis_id) REFERENCES colis(id) ON DELETE CASCADE
 );
 
 -- Création de la table Statistiques (pour stocker des informations de suivi)

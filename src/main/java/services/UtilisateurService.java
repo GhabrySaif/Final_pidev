@@ -33,7 +33,7 @@ public class UtilisateurService {
 
         utilisateur.setUsername(username);
         utilisateur.setEmail(email);
-        utilisateur.setMotDePasse(motDePasse);
+        utilisateur.setPassword(motDePasse);
         utilisateur.setRole(role);
         return utilisateurDAO.mettreAJour(utilisateur);
     }
