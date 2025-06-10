@@ -66,31 +66,31 @@ public class LoginController {
         Stage stage = (Stage) loginButton.getScene().getWindow();
         System.out.println(utilisateur.getRole());
 
-        String fxmlPath = "";
-        switch (utilisateur.getRole()) {
-            case "admin" -> fxmlPath = "/admin_dashboard.fxml";
-            case "livreur" -> fxmlPath = "/livreur_dashboard.fxml";
-        }
-
-        // Vérifier si le fichier existe
-        URL fxmlUrl = getClass().getResource(fxmlPath);
-        if (fxmlUrl == null) {
-            System.err.println("FXML file not found: " + fxmlPath);
-            return;
-        }
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("admin_dashboard.fxml")));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-
-    // Méthode pour afficher une boîte de dialogue d'alerte
-    private void showAlert(AlertType type, String title, String message) {
-        Alert alert = new Alert(type);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
+        //String fxmlPath = "";
+//        switch (utilisateur.getRole()) {
+//            case "admin" -> fxmlPath = "/admin_dashboard.fxml";
+//            case "livreur" -> fxmlPath = "/livreur_dashboard.fxml";
+//        }
+//
+//        // Vérifier si le fichier existe
+//        URL fxmlUrl = getClass().getResource(fxmlPath);
+//        if (fxmlUrl == null) {
+//            System.err.println("FXML file not found: " + fxmlPath);
+//            return;
+//        }
+//        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("admin_dashboard.fxml")));
+//        Scene scene = new Scene(root);
+//        stage.setScene(scene);
+//        stage.show();
+//    }
+//
+//
+//    // Méthode pour afficher une boîte de dialogue d'alerte
+//    private void showAlert(AlertType type, String title, String message) {
+//        Alert alert = new Alert(type);
+//        alert.setTitle(title);
+//        alert.setHeaderText(null);
+//        alert.setContentText(message);
+//        alert.showAndWait();
+//    }
 }
