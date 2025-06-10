@@ -33,6 +33,7 @@ public class ColisDAO {
             stmt.setString(2, colis.getDescription());
             stmt.setString(5, colis.getStatut());
             stmt.setInt(6, colis.getId());
+            stmt.setString(6, colis.getColisType());
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
