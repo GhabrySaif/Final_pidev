@@ -5,23 +5,31 @@ public class Colis {
     private String description;
     private String statut; // "En attente", "En cours", "Livré"
     private String dateCreation;
+    private String ColisType;
 
     // Constructeur par défaut
     public Colis() {
     }
 
     // Constructeur avec paramètres
-    public Colis(int id, String description, String statut, String dateCreation) {
+    public Colis(int id, String description, String statut, String dateCreation, String ColisType) {
         this.id = id;
         this.description = description;
         this.statut = statut;
         this.dateCreation = dateCreation;
+        this.ColisType = ColisType;
     }
 
     public Colis(int id, int utilisateurId, String description, double poids, String adresseDestination, String statut) {
     }
 
     // Getters et Setters
+    public String getColisType(){return ColisType;}
+
+    public void setColisType(String colisType) {
+        ColisType = colisType;
+    }
+
     public int getId() {
         return id;
     }
