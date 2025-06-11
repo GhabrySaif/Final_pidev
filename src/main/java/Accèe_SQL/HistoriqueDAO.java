@@ -8,13 +8,13 @@
 //import java.util.ArrayList;
 //import java.util.List;
 //
-//public class HistoriqueDAO {
-//    private Connection connection;
-//
-//    // Constructeur qui initialise la connexion à la base de données
-//    public HistoriqueDAO() {
-//        connection = DatabaseConnection.getInstance().getConnection();
-//    }
+public class HistoriqueDAO {
+    private Connection connection;
+
+    // Constructeur qui initialise la connexion à la base de données
+    public HistoriqueDAO() {
+        connection = DatabaseConnection.getInstance().getConnection();
+    }
 //
 //    // Ajouter un nouvel enregistrement dans l'historique
 //    public boolean ajouter(Historique historique) {
