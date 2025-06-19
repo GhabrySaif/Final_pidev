@@ -17,15 +17,14 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 
-
 public class LoginController {
 
     @FXML
-    private TextField usernameField;  // Champ pour le nom d'utilisateur
+    private TextField usernameField; // Champ pour le nom d'utilisateur
     @FXML
-    private PasswordField passwordField;  // Champ pour le mot de passe
+    private PasswordField passwordField; // Champ pour le mot de passe
     @FXML
-    private Button loginButton;  // Bouton de connexion
+    private Button loginButton; // Bouton de connexion
 
     private UtilisateurService utilisateurService;
 
@@ -61,36 +60,50 @@ public class LoginController {
         }
     }
 
-    // Méthode pour rediriger l'utilisateur vers la page correspondante en fonction de son rôle
+    // Méthode pour rediriger l'utilisateur vers la page correspondante en fonction
+    // de son rôle
     private void redirectToAppropriatePage(Utilisateur utilisateur) throws IOException {
         Stage stage = (Stage) loginButton.getScene().getWindow();
         System.out.println(utilisateur.getRole());
 
-        //String fxmlPath = "";
-//        switch (utilisateur.getRole()) {
-//            case "admin" -> fxmlPath = "/admin_dashboard.fxml";
-//            case "livreur" -> fxmlPath = "/livreur_dashboard.fxml";
-//        }
-//
-//        // Vérifier si le fichier existe
-//        URL fxmlUrl = getClass().getResource(fxmlPath);
-//        if (fxmlUrl == null) {
-//            System.err.println("FXML file not found: " + fxmlPath);
-//            return;
-//        }
-//        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("admin_dashboard.fxml")));
-//        Scene scene = new Scene(root);
-//        stage.setScene(scene);
-//        stage.show();
-//    }
-//
-//
-//    // Méthode pour afficher une boîte de dialogue d'alerte
-//    private void showAlert(AlertType type, String title, String message) {
-//        Alert alert = new Alert(type);
-//        alert.setTitle(title);
-//        alert.setHeaderText(null);
-//        alert.setContentText(message);
-//        alert.showAndWait();
-//    }
+        String fxmlPath = "";
+        switch (utilisateur.getRole().toLowerCase()) {
+            case "admin" -> fxmlPath = "/admin_dashboard.fxml";
+            case "livreur" -> fxmlPath = "/livreur_dashboard.fxml";
+            case "client" -> fxmlPath = "/client_dashboard.fxml";
+            default -> {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erreur de rôle");
+                alert.setHeaderText(null);
+                alert.setContentText("Rôle utilisateur non reconnu: " + utilisateur.getRole());
+                alert.show();
+                return;
+            }
+        }
+
+        // Vérifier si le fichier existe
+        URL fxmlUrl = getClass().getResource(fxmlPath);
+        if (fxmlUrl == null) {
+            System.err.println("FXML file not found: " + fxmlPath);
+            return;
+        }
+
+        FXMLLoader fxmlLoader = new FXMLLoader(fxmlUrl);
+        Scene scene = new Scene(fxmlLoader.load());
+
+        // Passer l'utilisateur au contrôleur approprié
+        String role = utilisateur.getRole().toLowerCase();
+        if (role.equals("client")) {
+            controllers.client.ClientDashboardController controller = fxmlLoader.getController();
+            controller.setCurrentUser(utilisateur);
+        } else if (role.equals("livreur")) {
+            controllers.livreur.LivreurDashboardController controller = fxmlLoader.getController();
+            controller.setCurrentUser(utilisateur);
+        }
+
+        stage.setScene(scene);
+        stage.setTitle("Tableau de Bord - " + utilisateur.getRole());
+        stage.show();
+    }
+
 }

@@ -1,37 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Region?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.admin.GestionLivreursController"
+            stylesheets="@simple-responsive.css" styleClass="main-container"
+            prefHeight="600.0" prefWidth="900.0">
 
-    <!-- Corps de l'interface -->
-    <VBox spacing="10" AnchorPane.topAnchor="30" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.bottomAnchor="10">
-        <Label text="Gestion des Livreurs" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+    <!-- Simple Content Layout -->
+    <HBox AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10"
+          AnchorPane.bottomAnchor="10" styleClass="simple-hbox">
 
-        <!-- Tableau des Livreurs -->
-        <TableView fx:id="tableViewLivreurs" >
-            <columns>
-                <TableColumn fx:id="LivreurId" text="ID Livreur" prefWidth="100" />
-                <TableColumn fx:id="ClienNom" text="Nom du Livreur" prefWidth="200" />
-                <TableColumn fx:id="LivreurActions" text="Actions" prefWidth="150">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="actions" />
-                    </cellValueFactory>
-                </TableColumn>
-            </columns>
-        </TableView>
+        <!-- Left Panel - Driver List -->
+        <VBox styleClass="content-panel,simple-vbox,responsive-panel">
+            <Label text="Gestion des Livreurs" styleClass="title-label"/>
 
-        <!-- Boutons d'actions supplémentaires -->
-        <HBox spacing="10" alignment="center" AnchorPane.bottomAnchor="10">
-            <Button text="Ajouter un Livreur" style="-fx-background-color: #28a745; -fx-text-fill: white;" />
-            <Button text="Modifier un Livreur" style="-fx-background-color: #ffc107; -fx-text-fill: black;" />
-            <Button text="Supprimer un Livreur" style="-fx-background-color: #dc3545; -fx-text-fill: white;" />
-        </HBox>
-    </VBox>
+            <!-- Driver List -->
+            <Label text="Liste des Livreurs" styleClass="section-label"/>
+            <ListView fx:id="utilisateursListView" prefHeight="250" VBox.vgrow="ALWAYS"/>
+
+            <!-- Driver Details -->
+            <Label text="Détails du Livreur" styleClass="section-label"/>
+            <TextArea fx:id="utilisateurDetailsTextArea" prefHeight="100" editable="false"
+                      promptText="Sélectionnez un livreur pour voir ses détails..."/>
+        </VBox>
+
+        <!-- Right Panel - Form -->
+        <VBox styleClass="content-panel,simple-vbox,responsive-panel" HBox.hgrow="ALWAYS">
+            <Label text="Formulaire Livreur" styleClass="title-label"/>
+
+            <!-- Form Fields -->
+            <VBox styleClass="form-section">
+                <Label text="Informations du Livreur" styleClass="section-label"/>
+
+                <!-- Name Field -->
+                <VBox styleClass="field-group">
+                    <Label text="Nom d'utilisateur:"/>
+                    <TextField fx:id="nomTextField" promptText="Nom d'utilisateur"/>
+                </VBox>
+
+                <!-- Email Field -->
+                <VBox styleClass="field-group">
+                    <Label text="Adresse email:"/>
+                    <TextField fx:id="emailTextField" promptText="exemple@email.com"/>
+                </VBox>
+
+                <!-- Role Field -->
+                <VBox styleClass="field-group">
+                    <Label text="Rôle:"/>
+                    <TextField fx:id="roleTextField" text="Livreur" editable="false"
+                               style="-fx-background-color: #f5f5f5;"/>
+                </VBox>
+
+                <!-- Info Note -->
+                <Label text="Note: Un mot de passe par défaut sera généré (nom + 123)"
+                       style="-fx-font-size: 12px; -fx-text-fill: #666;"/>
+            </VBox>
+
+            <!-- Action Buttons -->
+            <Label text="Actions" styleClass="section-label"/>
+            <HBox styleClass="simple-hbox">
+                <Button fx:id="addUtilisateurButton" text="Ajouter" onAction="#handleAddUtilisateur"
+                        styleClass="add-button"/>
+                <Button fx:id="updateUtilisateurButton" text="Modifier" onAction="#handleUpdateUtilisateur"
+                        styleClass="edit-button"/>
+                <Button fx:id="deleteUtilisateurButton" text="Supprimer" onAction="#handleDeleteUtilisateur"
+                        styleClass="delete-button"/>
+            </HBox>
+        </VBox>
+    </HBox>
 </AnchorPane>

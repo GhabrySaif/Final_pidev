@@ -21,7 +21,11 @@ public class LivraisonDAO {
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, livraison.getColisId());
             stmt.setInt(2, livraison.getLivreurId());
-            stmt.setDate(3, Date.valueOf(livraison.getDateLivraison()));
+            if (livraison.getDateLivraison() != null && !livraison.getDateLivraison().isEmpty()) {
+                stmt.setTimestamp(3, Timestamp.valueOf(livraison.getDateLivraison()));
+            } else {
+                stmt.setTimestamp(3, null);
+            }
             stmt.setString(4, livraison.getStatut());
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -36,7 +40,11 @@ public class LivraisonDAO {
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, livraison.getColisId());
             stmt.setInt(2, livraison.getLivreurId());
-            stmt.setDate(3, Date.valueOf(livraison.getDateLivraison()));
+            if (livraison.getDateLivraison() != null && !livraison.getDateLivraison().isEmpty()) {
+                stmt.setTimestamp(3, Timestamp.valueOf(livraison.getDateLivraison()));
+            } else {
+                stmt.setTimestamp(3, null);
+            }
             stmt.setString(4, livraison.getStatut());
             stmt.setInt(5, livraison.getId());
             return stmt.executeUpdate() > 0;
@@ -65,13 +73,16 @@ public class LivraisonDAO {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                return new Livraison(
-                        rs.getInt("id"),
-                        rs.getInt("colis_id"),
-                        rs.getInt("livreur_id"),
-                        rs.getDate("date_livraison").toLocalDate(),
-                        rs.getString("statut")
-                );
+                Livraison livraison = new Livraison();
+                livraison.setId(rs.getInt("id"));
+                livraison.setColisId(rs.getInt("colis_id"));
+                livraison.setLivreurId(rs.getInt("livreur_id"));
+                Timestamp timestamp = rs.getTimestamp("date_livraison");
+                if (timestamp != null) {
+                    livraison.setDateLivraison(timestamp.toString());
+                }
+                livraison.setStatut(rs.getString("statut"));
+                return livraison;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -86,13 +97,15 @@ public class LivraisonDAO {
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery(query)) {
             while (rs.next()) {
-                Livraison livraison = new Livraison(
-                        rs.getInt("id"),
-                        rs.getInt("colis_id"),
-                        rs.getInt("livreur_id"),
-                        rs.getDate("date_livraison").toLocalDate(),
-                        rs.getString("statut")
-                );
+                Livraison livraison = new Livraison();
+                livraison.setId(rs.getInt("id"));
+                livraison.setColisId(rs.getInt("colis_id"));
+                livraison.setLivreurId(rs.getInt("livreur_id"));
+                Timestamp timestamp = rs.getTimestamp("date_livraison");
+                if (timestamp != null) {
+                    livraison.setDateLivraison(timestamp.toString());
+                }
+                livraison.setStatut(rs.getString("statut"));
                 listeLivraisons.add(livraison);
             }
         } catch (SQLException e) {
@@ -109,13 +122,15 @@ public class LivraisonDAO {
             stmt.setInt(1, livreurId);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                Livraison livraison = new Livraison(
-                        rs.getInt("id"),
-                        rs.getInt("colis_id"),
-                        rs.getInt("livreur_id"),
-                        rs.getDate("date_livraison").toLocalDate(),
-                        rs.getString("statut")
-                );
+                Livraison livraison = new Livraison();
+                livraison.setId(rs.getInt("id"));
+                livraison.setColisId(rs.getInt("colis_id"));
+                livraison.setLivreurId(rs.getInt("livreur_id"));
+                Timestamp timestamp = rs.getTimestamp("date_livraison");
+                if (timestamp != null) {
+                    livraison.setDateLivraison(timestamp.toString());
+                }
+                livraison.setStatut(rs.getString("statut"));
                 listeLivraisons.add(livraison);
             }
         } catch (SQLException e) {

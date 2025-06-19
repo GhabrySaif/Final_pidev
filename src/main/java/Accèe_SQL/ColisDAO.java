@@ -16,11 +16,35 @@ public class ColisDAO {
 
     // Ajouter un colis
     public boolean ajouter(Colis colis) {
-        String query = "INSERT INTO colis (name, description, date_creation) VALUES (?, ?, ?, ?)";
+        if (connection == null) {
+            System.err.println("Erreur: Connexion à la base de données non établie");
+            return false;
+        }
+
+        String query = "INSERT INTO colis (utilisateur_id, description, poids, volume, adresse_destination, statut) VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            System.out.println("Tentative d'ajout colis:");
+            System.out.println("  Utilisateur ID: " + colis.getUtilisateurId());
+            System.out.println("  Description: " + colis.getDescription());
+            System.out.println("  Poids: " + colis.getPoids());
+            System.out.println("  Volume: " + colis.getVolume());
+            System.out.println("  Adresse: " + colis.getAdresseDestination());
+            System.out.println("  Statut: " + colis.getStatut());
+
+            stmt.setInt(1, colis.getUtilisateurId());
             stmt.setString(2, colis.getDescription());
-            return stmt.executeUpdate() > 0;
+            stmt.setDouble(3, colis.getPoids());
+            stmt.setDouble(4, colis.getVolume());
+            stmt.setString(5, colis.getAdresseDestination());
+            stmt.setString(6, colis.getStatut());
+
+            int result = stmt.executeUpdate();
+            System.out.println("Résultat de l'insertion: " + result + " ligne(s) affectée(s)");
+            return result > 0;
         } catch (SQLException e) {
+            System.err.println("Erreur SQL lors de l'ajout du colis:");
+            System.err.println("Code d'erreur: " + e.getErrorCode());
+            System.err.println("Message: " + e.getMessage());
             e.printStackTrace();
         }
         return false;
@@ -28,12 +52,15 @@ public class ColisDAO {
 
     // Mettre à jour un colis
     public boolean mettreAJour(Colis colis) {
-        String query = "UPDATE colis SET description = ?, statut = ? WHERE id = ?";
+        String query = "UPDATE colis SET utilisateur_id = ?, description = ?, poids = ?, volume = ?, adresse_destination = ?, statut = ? WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, colis.getUtilisateurId());
             stmt.setString(2, colis.getDescription());
-            stmt.setString(5, colis.getStatut());
-            stmt.setInt(6, colis.getId());
-            stmt.setString(6, colis.getColisType());
+            stmt.setDouble(3, colis.getPoids());
+            stmt.setDouble(4, colis.getVolume());
+            stmt.setString(5, colis.getAdresseDestination());
+            stmt.setString(6, colis.getStatut());
+            stmt.setInt(7, colis.getId());
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -60,14 +87,15 @@ public class ColisDAO {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                return new Colis(
-                        rs.getInt("id"),
-                        rs.getInt("utilisateur_id"),
-                        rs.getString("description"),
-                        rs.getDouble("poids"),
-                        rs.getString("adresse_destination"),
-                        rs.getString("statut")
-                );
+                Colis colis = new Colis();
+                colis.setId(rs.getInt("id"));
+                colis.setUtilisateurId(rs.getInt("utilisateur_id"));
+                colis.setDescription(rs.getString("description"));
+                colis.setPoids(rs.getDouble("poids"));
+                colis.setVolume(rs.getDouble("volume"));
+                colis.setAdresseDestination(rs.getString("adresse_destination"));
+                colis.setStatut(rs.getString("statut"));
+                return colis;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -80,16 +108,16 @@ public class ColisDAO {
         List<Colis> listeColis = new ArrayList<>();
         String query = "SELECT * FROM colis";
         try (Statement stmt = connection.createStatement();
-             ResultSet rs = stmt.executeQuery(query)) {
+                ResultSet rs = stmt.executeQuery(query)) {
             while (rs.next()) {
-                Colis colis = new Colis(
-                        rs.getInt("id"),
-                        rs.getInt("utilisateur_id"),
-                        rs.getString("description"),
-                        rs.getDouble("poids"),
-                        rs.getString("adresse_destination"),
-                        rs.getString("statut")
-                );
+                Colis colis = new Colis();
+                colis.setId(rs.getInt("id"));
+                colis.setUtilisateurId(rs.getInt("utilisateur_id"));
+                colis.setDescription(rs.getString("description"));
+                colis.setPoids(rs.getDouble("poids"));
+                colis.setVolume(rs.getDouble("volume"));
+                colis.setAdresseDestination(rs.getString("adresse_destination"));
+                colis.setStatut(rs.getString("statut"));
                 listeColis.add(colis);
             }
         } catch (SQLException e) {
@@ -99,26 +127,46 @@ public class ColisDAO {
     }
 
     // Obtenir les colis par utilisateur
-//    public List<Colis> obtenirParUtilisateur(int utilisateurId) {
-//        List<Colis> listeColis = new ArrayList<>();
-//        String query = "SELECT * FROM colis WHERE utilisateur_id = ?";
-//        try (PreparedStatement stmt = connection.prepareStatement(query)) {
-//            stmt.setInt(1, utilisateurId);
-//            ResultSet rs = stmt.executeQuery();
-//            while (rs.next()) {
-//                Colis colis = new Colis(
-//                        rs.getInt("id"),
-//                        rs.getInt("utilisateur_id"),
-//                        rs.getString("description"),
-//                        rs.getDouble("poids"),
-//                        rs.getString("adresse_destination"),
-//                        rs.getString("statut")
-//                );
-//                listeColis.add(colis);
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return listeColis;
-//    }
+    public List<Colis> obtenirParUtilisateur(int utilisateurId) {
+        List<Colis> listeColis = new ArrayList<>();
+
+        if (connection == null) {
+            System.err.println("Erreur: Connexion à la base de données non établie");
+            return listeColis;
+        }
+
+        String query = "SELECT * FROM colis WHERE utilisateur_id = ?";
+        System.out.println("ColisDAO.obtenirParUtilisateur() - Exécution de la requête: " + query);
+        System.out.println("Paramètre utilisateurId: " + utilisateurId);
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, utilisateurId);
+            ResultSet rs = stmt.executeQuery();
+
+            int count = 0;
+            while (rs.next()) {
+                count++;
+                Colis colis = new Colis();
+                colis.setId(rs.getInt("id"));
+                colis.setUtilisateurId(rs.getInt("utilisateur_id"));
+                colis.setDescription(rs.getString("description"));
+                colis.setPoids(rs.getDouble("poids"));
+                colis.setVolume(rs.getDouble("volume"));
+                colis.setAdresseDestination(rs.getString("adresse_destination"));
+                colis.setStatut(rs.getString("statut"));
+                listeColis.add(colis);
+
+                System.out.println("Colis trouvé: ID=" + colis.getId() + ", Description=" + colis.getDescription());
+            }
+
+            System.out.println("ColisDAO.obtenirParUtilisateur() - " + count + " colis trouvés pour l'utilisateur "
+                    + utilisateurId);
+        } catch (SQLException e) {
+            System.err.println("Erreur SQL lors de la récupération des colis par utilisateur:");
+            System.err.println("Code d'erreur: " + e.getErrorCode());
+            System.err.println("Message: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return listeColis;
+    }
 }

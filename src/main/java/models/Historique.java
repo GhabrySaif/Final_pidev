@@ -1,24 +1,23 @@
 package models;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Historique {
     private int id;
-    private int colisId;  // Référence vers le colis concerné
-    private int utilisateurId;  // Référence vers l'utilisateur (client, livreur, admin)
-    private String action;  // Exemple : "Colis créé", "Colis pris en charge", "Colis livré"
-    private String dateAction;
+    private int livraisonId;  // Référence vers la livraison concernée
+    private String statut;  // Statut de la livraison à ce moment
+    private LocalDateTime dateAction;
 
     // Constructeur par défaut
     public Historique() {
     }
 
     // Constructeur avec paramètres
-    public Historique(int id, int colisId, int utilisateurId, String action, String dateAction) {
+    public Historique(int id, int livraisonId, String statut, LocalDateTime dateAction) {
         this.id = id;
-        this.colisId = colisId;
-        this.utilisateurId = utilisateurId;
-        this.action = action;
+        this.livraisonId = livraisonId;
+        this.statut = statut;
         this.dateAction = dateAction;
     }
 
@@ -31,35 +30,27 @@ public class Historique {
         this.id = id;
     }
 
-    public int getColisId() {
-        return colisId;
+    public int getLivraisonId() {
+        return livraisonId;
     }
 
-    public void setColisId(int colisId) {
-        this.colisId = colisId;
+    public void setLivraisonId(int livraisonId) {
+        this.livraisonId = livraisonId;
     }
 
-    public int getUtilisateurId() {
-        return utilisateurId;
+    public String getStatut() {
+        return statut;
     }
 
-    public void setUtilisateurId(int utilisateurId) {
-        this.utilisateurId = utilisateurId;
+    public void setStatut(String statut) {
+        this.statut = statut;
     }
 
-    public String getAction() {
-        return action;
-    }
-
-    public void setAction(String action) {
-        this.action = action;
-    }
-
-    public String getDateAction() {
+    public LocalDateTime getDateAction() {
         return dateAction;
     }
 
-    public void setDateAction(String dateAction) {
+    public void setDateAction(LocalDateTime dateAction) {
         this.dateAction = dateAction;
     }
 
@@ -68,10 +59,9 @@ public class Historique {
     public String toString() {
         return "Historique{" +
                 "id=" + id +
-                ", colisId=" + colisId +
-                ", utilisateurId=" + utilisateurId +
-                ", action='" + action + '\'' +
-                ", dateAction='" + dateAction + '\'' +
+                ", livraisonId=" + livraisonId +
+                ", statut='" + statut + '\'' +
+                ", dateAction=" + dateAction +
                 '}';
     }
 

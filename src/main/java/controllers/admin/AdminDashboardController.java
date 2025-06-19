@@ -12,7 +12,7 @@ import java.io.IOException;
 public class AdminDashboardController {
 
     @FXML
-   // private Button Gestion_Livreurs; // Gestion des Clients
+    private Button Gestion_Livreurs; // Gestion des Clients
 
     @FXML
     private Button Gestion_Clients; // Gestion des Clients

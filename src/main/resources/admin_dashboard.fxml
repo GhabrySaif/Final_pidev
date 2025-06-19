@@ -1,21 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="800.0" stylesheets="Style.css"
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1000.0"
+            stylesheets="@simple-responsive.css"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="controllers.admin.AdminDashboardController">
+            fx:controller="controllers.admin.AdminDashboardController"
+            styleClass="main-container">
 
-    <!-- Sidebar Menu -->
+    <!-- Simple Sidebar Menu -->
     <VBox fx:id="sideMenu" prefWidth="200.0" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0"
-          AnchorPane.bottomAnchor="0" spacing="10.0" style="-fx-background-color: #f0f0f0;">
-        <Button fx:id="Gestion_Livreurs" onAction="#handleGestionLivreurs" text="Gestion des Livreurs" maxWidth="Infinity"/>
-        <Button fx:id="Gestion_Clients" onAction="#handleGestionClients" text="Gestion des Clients" maxWidth="Infinity"/>
-        <Button fx:id="Gestion_Colis" onAction="#handleGestionColis" text="Gestion des Colis" maxWidth="Infinity"/>
-        <Button fx:id="Statistiques" onAction="#handleDeconnexion" text="Statistiques" maxWidth="Infinity"/>
-        <Button fx:id="Deconnexion" onAction="#handleDeconnexion" text="Déconnexion" maxWidth="Infinity"/>
+          AnchorPane.bottomAnchor="0" styleClass="nav-panel">
+
+        <!-- Header -->
+        <Label text="Admin Dashboard" styleClass="title-label"/>
+
+        <!-- Navigation Buttons -->
+        <VBox styleClass="simple-vbox">
+            <Button fx:id="Gestion_Colis" onAction="#handleGestionColis" text="Gestion des Colis"
+                    styleClass="nav-button,full-width"/>
+            <Button fx:id="Gestion_Clients" onAction="#handleGestionClients" text="Gestion des Clients"
+                    styleClass="nav-button,full-width"/>
+            <Button fx:id="Gestion_Livreurs" onAction="#handleGestionLivreurs" text="Gestion des Livreurs"
+                    styleClass="nav-button,full-width"/>
+            <Button fx:id="Statistiques" onAction="#handleStatistiques" text="Statistiques"
+                    styleClass="nav-button,full-width"/>
+        </VBox>
+
+        <!-- Spacer -->
+        <Region VBox.vgrow="ALWAYS"/>
+
+        <!-- Logout Button -->
+        <Button fx:id="Deconnexion" onAction="#handleDeconnexion" text="Déconnexion"
+                styleClass="delete-button,full-width"/>
+    </VBox>
+
+    <!-- Simple Content Area -->
+    <VBox AnchorPane.topAnchor="20" AnchorPane.leftAnchor="220" AnchorPane.rightAnchor="20"
+          AnchorPane.bottomAnchor="20" styleClass="content-panel,simple-vbox">
+
+        <Label text="Tableau de Bord Administrateur" styleClass="title-label"/>
+
+        <Label text="Bienvenue dans le système de gestion des colis." styleClass="label"/>
+        <Label text="Utilisez le menu à gauche pour naviguer entre les différentes sections." styleClass="label"/>
+
+        <!-- Quick Actions -->
+        <Label text="Actions Rapides" styleClass="section-label"/>
+        <HBox styleClass="simple-hbox">
+            <Button text="Gérer Colis" onAction="#handleGestionColis" styleClass="edit-button"/>
+            <Button text="Nouveau Client" onAction="#handleGestionClients" styleClass="add-button"/>
+            <Button text="Nouveau Livreur" onAction="#handleGestionLivreurs" styleClass="add-button"/>
+            <Button text="Voir Statistiques" onAction="#handleStatistiques" styleClass="edit-button"/>
+        </HBox>
     </VBox>
 
     <!-- Content Pane (Main View) -->

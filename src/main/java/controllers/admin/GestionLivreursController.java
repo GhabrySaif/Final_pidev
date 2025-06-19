@@ -41,7 +41,8 @@ public class GestionLivreursController {
     // Méthode appelée lors de l'initialisation de la vue
     @FXML
     private void initialize() {
-        utilisateursList = FXCollections.observableArrayList(utilisateurService.obtenirTousLesUtilisateurs());
+        // Charger uniquement les livreurs
+        utilisateursList = FXCollections.observableArrayList(utilisateurService.obtenirLivreurs());
         utilisateursListView.setItems(utilisateursList);
 
         // Sélectionner un utilisateur et afficher ses détails
@@ -127,20 +128,43 @@ public class GestionLivreursController {
             return;
         }
 
-        Utilisateur newUtilisateur = new Utilisateur(username, email, role);
-        boolean added = utilisateurService.ajouterUtilisateur(newUtilisateur.getUsername(),newUtilisateur.getEmail(),newUtilisateur.getPassword(),newUtilisateur.getRole());
+        // Créer un mot de passe par défaut
+        String defaultPassword = username + "123";
+
+        System.out.println("Tentative d'ajout d'utilisateur depuis le contrôleur:");
+        System.out.println("  Username: " + username);
+        System.out.println("  Email: " + email);
+        System.out.println("  Role: " + role);
+
+        boolean added = utilisateurService.ajouterUtilisateur(username, email, defaultPassword, role);
 
         if (added) {
-            showAlert(AlertType.INFORMATION, "Utilisateur ajouté", "L'utilisateur a été ajouté avec succès.");
+            showAlert(AlertType.INFORMATION, "Livreur ajouté",
+                     "Le livreur a été ajouté avec succès.\nMot de passe par défaut: " + defaultPassword);
             refreshUtilisateursList();
+            clearFields();
         } else {
-            showAlert(AlertType.ERROR, "Erreur", "Impossible d'ajouter l'utilisateur.");
+            showAlert(AlertType.ERROR, "Erreur d'ajout",
+                     "Impossible d'ajouter le livreur.\n\n" +
+                     "Causes possibles:\n" +
+                     "• Nom d'utilisateur déjà existant\n" +
+                     "• Problème de connexion à la base de données\n" +
+                     "• Email déjà utilisé\n\n" +
+                     "Vérifiez la console pour plus de détails.");
         }
     }
 
-    // Rafraîchir la liste des utilisateurs
+    // Vider les champs de saisie
+    private void clearFields() {
+        nomTextField.clear();
+        emailTextField.clear();
+        roleTextField.clear();
+        utilisateurDetailsTextArea.clear();
+    }
+
+    // Rafraîchir la liste des livreurs
     private void refreshUtilisateursList() {
-        utilisateursList.setAll(utilisateurService.obtenirTousLesUtilisateurs());
+        utilisateursList.setAll(utilisateurService.obtenirLivreurs());
     }
 
     // Méthode pour afficher une alerte

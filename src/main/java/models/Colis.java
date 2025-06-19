@@ -2,34 +2,37 @@ package models;
 
 public class Colis {
     private int id;
+    private int utilisateurId;
     private String description;
+    private double poids;
+    private double volume;
+    private String adresseDestination;
     private String statut; // "En attente", "En cours", "Livré"
     private String dateCreation;
-    private String ColisType;
 
     // Constructeur par défaut
     public Colis() {
     }
 
     // Constructeur avec paramètres
-    public Colis(int id, String description, String statut, String dateCreation, String ColisType) {
+    public Colis(int id, String description, String statut, String dateCreation) {
         this.id = id;
         this.description = description;
         this.statut = statut;
         this.dateCreation = dateCreation;
-        this.ColisType = ColisType;
     }
 
+    // Constructeur complet
     public Colis(int id, int utilisateurId, String description, double poids, String adresseDestination, String statut) {
+        this.id = id;
+        this.utilisateurId = utilisateurId;
+        this.description = description;
+        this.poids = poids;
+        this.adresseDestination = adresseDestination;
+        this.statut = statut;
     }
 
     // Getters et Setters
-    public String getColisType(){return ColisType;}
-
-    public void setColisType(String colisType) {
-        ColisType = colisType;
-    }
-
     public int getId() {
         return id;
     }
@@ -62,12 +65,48 @@ public class Colis {
         this.dateCreation = dateCreation;
     }
 
+    public int getUtilisateurId() {
+        return utilisateurId;
+    }
+
+    public void setUtilisateurId(int utilisateurId) {
+        this.utilisateurId = utilisateurId;
+    }
+
+    public double getPoids() {
+        return poids;
+    }
+
+    public void setPoids(double poids) {
+        this.poids = poids;
+    }
+
+    public double getVolume() {
+        return volume;
+    }
+
+    public void setVolume(double volume) {
+        this.volume = volume;
+    }
+
+    public String getAdresseDestination() {
+        return adresseDestination;
+    }
+
+    public void setAdresseDestination(String adresseDestination) {
+        this.adresseDestination = adresseDestination;
+    }
+
     // Méthode toString pour affichage
     @Override
     public String toString() {
         return "Colis{" +
                 "id=" + id +
+                ", utilisateurId=" + utilisateurId +
                 ", description='" + description + '\'' +
+                ", poids=" + poids +
+                ", volume=" + volume +
+                ", adresseDestination='" + adresseDestination + '\'' +
                 ", statut='" + statut + '\'' +
                 ", dateCreation='" + dateCreation + '\'' +
                 '}';

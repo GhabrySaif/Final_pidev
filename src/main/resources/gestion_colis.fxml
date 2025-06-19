@@ -1,41 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Region?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" >
 
-    <!-- Corps de l'interface -->
-    <VBox spacing="10" AnchorPane.topAnchor="30" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.bottomAnchor="10">
-        <Label text="Gestion des Colis" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.admin.GestionColisController"
+            stylesheets="@simple-responsive.css" styleClass="main-container"
+            prefHeight="600.0" prefWidth="900.0">
 
-        <!-- Tableau des colis -->
-        <TableView fx:id="tableViewColis" >
-            <columns>
-                <TableColumn fx:id="colisId" text="ID Colis" prefWidth="100" />
-                <TableColumn fx:id="colisNom" text="Nom du Colis" prefWidth="200" />
-                <TableColumn fx:id="colisStatus" text="Statut" prefWidth="150" />
-                <TableColumn fx:id="colisDateLivraison" text="Date de Livraison" prefWidth="150" />
-                <TableColumn fx:id="colisDestination" text="Destination" prefWidth="200" />
-                <TableColumn fx:id="colisActions" text="Actions" prefWidth="150">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="actions" />
-                    </cellValueFactory>
-                </TableColumn>
-            </columns>
-        </TableView>
+    <!-- Simple Content Layout -->
+    <HBox AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10"
+          AnchorPane.bottomAnchor="10" styleClass="simple-hbox">
 
-        <!-- Boutons d'actions supplémentaires -->
-        <HBox spacing="10" alignment="center" AnchorPane.bottomAnchor="10">
-            <Button text="Ajouter un Colis" style="-fx-background-color: #28a745; -fx-text-fill: white;" />
-            <Button text="Modifier un Colis" style="-fx-background-color: #ffc107; -fx-text-fill: black;" />
-            <Button text="Supprimer un Colis" style="-fx-background-color: #dc3545; -fx-text-fill: white;" />
-        </HBox>
-    </VBox>
+        <!-- Left Panel - Package List -->
+        <VBox styleClass="content-panel,simple-vbox,responsive-panel">
+            <Label text="Gestion des Colis" styleClass="title-label"/>
+
+            <!-- Package List -->
+            <Label text="Liste des Colis" styleClass="section-label"/>
+            <ListView fx:id="colisListView" prefHeight="250" VBox.vgrow="ALWAYS"/>
+
+            <!-- Package Details -->
+            <Label text="Détails du Colis" styleClass="section-label"/>
+            <TextArea fx:id="colisDetailsTextArea" prefHeight="100" editable="false"
+                      promptText="Sélectionnez un colis pour voir ses détails..."/>
+        </VBox>
+
+        <!-- Right Panel - Package Management -->
+        <VBox styleClass="content-panel,simple-vbox,responsive-panel" HBox.hgrow="ALWAYS">
+            <Label text="Gestion du Colis" styleClass="title-label"/>
+
+            <!-- Package Management Section -->
+            <VBox styleClass="form-section">
+                <Label text="Informations du Colis Sélectionné" styleClass="section-label"/>
+
+                <!-- Status Field -->
+                <VBox styleClass="field-group">
+                    <Label text="Statut actuel:"/>
+                    <TextField fx:id="statutTextField" editable="false"
+                               style="-fx-background-color: #f5f5f5;"/>
+                </VBox>
+
+                <!-- New Status Field -->
+                <VBox styleClass="field-group">
+                    <Label text="Nouveau statut:"/>
+                    <ComboBox fx:id="nouveauStatutComboBox" prefWidth="200"/>
+                </VBox>
+
+                <!-- Driver Assignment -->
+                <VBox styleClass="field-group">
+                    <Label text="Assigner à un livreur:"/>
+                    <ComboBox fx:id="livreurComboBox" prefWidth="200"/>
+                </VBox>
+
+                <!-- Info Note -->
+                <Label text="Note: Sélectionnez un colis pour le gérer"
+                       style="-fx-font-size: 12px; -fx-text-fill: #666;"/>
+            </VBox>
+
+            <!-- Management Actions -->
+            <Label text="Actions de Gestion" styleClass="section-label"/>
+            <HBox styleClass="simple-hbox">
+                <Button fx:id="updateStatusButton" text="Mettre à Jour Statut" onAction="#handleUpdateStatus"
+                        styleClass="edit-button"/>
+                <Button fx:id="assignDriverButton" text="Assigner Livreur" onAction="#handleAssignDriver"
+                        styleClass="add-button"/>
+                <Button fx:id="deleteButton" text="Supprimer" onAction="#handleDeleteColis"
+                        styleClass="delete-button"/>
+            </HBox>
+
+            <!-- Quick Stats -->
+            <VBox styleClass="form-section">
+                <Label text="Statistiques Rapides" styleClass="section-label"/>
+                <HBox styleClass="simple-hbox">
+                    <VBox styleClass="field-group">
+                        <Label text="En attente:" style="-fx-font-size: 12px;"/>
+                        <Label fx:id="enAttenteLabel" text="0" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #FF9800;"/>
+                    </VBox>
+                    <VBox styleClass="field-group">
+                        <Label text="En transit:" style="-fx-font-size: 12px;"/>
+                        <Label fx:id="enTransitLabel" text="0" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2196F3;"/>
+                    </VBox>
+                    <VBox styleClass="field-group">
+                        <Label text="Livrés:" style="-fx-font-size: 12px;"/>
+                        <Label fx:id="livresLabel" text="0" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #4CAF50;"/>
+                    </VBox>
+                </HBox>
+            </VBox>
+        </VBox>
+    </HBox>
 
 </AnchorPane>

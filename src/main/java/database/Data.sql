@@ -1,4 +1,4 @@
--- Insertion des utilisateurs
+
 INSERT INTO utilisateurs (username, password, role, email, phone)
 VALUES ('admin', 'admin123', 'Admin', 'admin@example.com', '0123456789'),
        ('livreur1', 'livreur123', 'Livreur', 'livreur1@example.com', '0987654321');

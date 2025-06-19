@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DdlMappings">
+    <mapping uuid="55d032b0-2328-460b-9ada-5defdd24027e" name="pidev@localhost Mapping">
+      <data-sources db="12e76f45-0f02-4573-8540-1036fc0fd359" ddl="1603e1f8-e6f3-41d3-9282-650d603e7f89" />
+      <scope>
+        <node kind="database" negative="1" />
+      </scope>
+    </mapping>
+  </component>
+</project>

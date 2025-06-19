@@ -1,13 +1,12 @@
 package models;
 
-import java.time.LocalDate;
 import java.util.Objects;
 
 public class Livraison {
     private int id;
-    private int colisId;  // Référence vers le colis
-    private int livreurId;  // Référence vers le livreur
-    private String statut;  // "En cours", "Livré", "Échoué"
+    private int colisId; // Référence vers le colis
+    private int livreurId; // Référence vers le livreur
+    private String statut; // "En cours", "Livré", "Échoué"
     private String dateDebut;
     private String dateLivraison;
     private String commentaires;
@@ -19,7 +18,7 @@ public class Livraison {
 
     // Constructeur avec paramètres
     public Livraison(int id, int colisId, int livreurId, String statut,
-                     String dateDebut, String dateLivraison, String commentaires) {
+            String dateDebut, String dateLivraison, String commentaires) {
         this.id = id;
         this.colisId = colisId;
         this.livreurId = livreurId;
@@ -27,13 +26,6 @@ public class Livraison {
         this.dateDebut = dateDebut;
         this.dateLivraison = dateLivraison;
         this.commentaires = commentaires;
-    }
-
-    public Livraison(int id, int colisId, int livreurId, LocalDate dateLivraison, String statut) {
-        this.id = id;
-        this.colisId = colisId;
-        this.livreurId = livreurId;
-        this.statut = statut;
     }
 
     // Getters et Setters
@@ -97,8 +89,8 @@ public class Livraison {
         return AdresseLivraison;
     }
 
-    public void SetAdresseLivraison(String dateLivraison) {
-        this.AdresseLivraison = AdresseLivraison;
+    public void setAdresseLivraison(String adresseLivraison) {
+        this.AdresseLivraison = adresseLivraison;
     }
 
     // Méthode toString pour affichage
@@ -118,8 +110,10 @@ public class Livraison {
     // Méthodes equals et hashCode pour comparer les objets Livraison
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         Livraison livraison = (Livraison) o;
         return id == livraison.id;
     }

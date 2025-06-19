@@ -1,0 +1,223 @@
+/* Simple Responsive CSS - Clean and Minimal Design */
+
+/* ===== ROOT SETTINGS ===== */
+.root {
+    -fx-font-family: "Arial", "Helvetica", sans-serif;
+    -fx-font-size: 14px;
+    -fx-base: #ffffff;
+}
+
+/* ===== SIMPLE CONTAINERS ===== */
+.main-container {
+    -fx-background-color: #f5f5f5;
+    -fx-padding: 10px;
+}
+
+.content-panel {
+    -fx-background-color: white;
+    -fx-padding: 15px;
+    -fx-border-color: #ddd;
+    -fx-border-width: 1px;
+}
+
+/* ===== SIMPLE LAYOUTS ===== */
+.simple-hbox {
+    -fx-spacing: 10px;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.simple-vbox {
+    -fx-spacing: 8px;
+    -fx-alignment: TOP_LEFT;
+}
+
+/* ===== CLEAN BUTTONS ===== */
+.button {
+    -fx-background-color: #e0e0e0;
+    -fx-text-fill: #333;
+    -fx-font-size: 14px;
+    -fx-padding: 8px 16px;
+    -fx-border-color: #ccc;
+    -fx-border-width: 1px;
+    -fx-background-radius: 3px;
+    -fx-border-radius: 3px;
+}
+
+.button:hover {
+    -fx-background-color: #d0d0d0;
+}
+
+.button:pressed {
+    -fx-background-color: #c0c0c0;
+}
+
+/* Simple Button Variants */
+.add-button {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-border-color: #45a049;
+}
+
+.add-button:hover {
+    -fx-background-color: #45a049;
+}
+
+.edit-button {
+    -fx-background-color: #2196F3;
+    -fx-text-fill: white;
+    -fx-border-color: #1976D2;
+}
+
+.edit-button:hover {
+    -fx-background-color: #1976D2;
+}
+
+.delete-button {
+    -fx-background-color: #f44336;
+    -fx-text-fill: white;
+    -fx-border-color: #d32f2f;
+}
+
+.delete-button:hover {
+    -fx-background-color: #d32f2f;
+}
+
+/* ===== SIMPLE TEXT FIELDS ===== */
+.text-field {
+    -fx-font-size: 14px;
+    -fx-padding: 6px 8px;
+    -fx-border-color: #ccc;
+    -fx-border-width: 1px;
+    -fx-background-color: white;
+    -fx-background-radius: 3px;
+    -fx-border-radius: 3px;
+}
+
+.text-field:focused {
+    -fx-border-color: #2196F3;
+    -fx-border-width: 2px;
+}
+
+/* ===== SIMPLE TEXT AREAS ===== */
+.text-area {
+    -fx-font-size: 14px;
+    -fx-padding: 6px 8px;
+    -fx-border-color: #ccc;
+    -fx-border-width: 1px;
+    -fx-background-color: white;
+    -fx-background-radius: 3px;
+    -fx-border-radius: 3px;
+}
+
+.text-area:focused {
+    -fx-border-color: #2196F3;
+    -fx-border-width: 2px;
+}
+
+/* ===== SIMPLE LABELS ===== */
+.label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333;
+}
+
+.title-label {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+    -fx-padding: 0 0 10px 0;
+}
+
+.section-label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+    -fx-padding: 5px 0;
+}
+
+/* ===== SIMPLE LISTS ===== */
+.list-view {
+    -fx-background-color: white;
+    -fx-border-color: #ccc;
+    -fx-border-width: 1px;
+}
+
+.list-cell {
+    -fx-padding: 8px;
+    -fx-font-size: 14px;
+}
+
+.list-cell:selected {
+    -fx-background-color: #e3f2fd;
+    -fx-text-fill: #1976d2;
+}
+
+/* ===== SIMPLE NAVIGATION ===== */
+.nav-panel {
+    -fx-background-color: #f0f0f0;
+    -fx-padding: 10px;
+    -fx-border-color: #ddd;
+    -fx-border-width: 0 1px 0 0;
+}
+
+.nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #333;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 15px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+}
+
+.nav-button:hover {
+    -fx-background-color: #e0e0e0;
+}
+
+.nav-button:pressed {
+    -fx-background-color: #d0d0d0;
+}
+
+/* ===== FORM STYLING ===== */
+.form-section {
+    -fx-background-color: #fafafa;
+    -fx-padding: 10px;
+    -fx-border-color: #eee;
+    -fx-border-width: 1px;
+    -fx-spacing: 8px;
+}
+
+.field-group {
+    -fx-spacing: 4px;
+}
+
+/* ===== RESPONSIVE UTILITIES ===== */
+.full-width {
+    -fx-max-width: Infinity;
+}
+
+.center-align {
+    -fx-alignment: CENTER;
+}
+
+.left-align {
+    -fx-alignment: CENTER_LEFT;
+}
+
+.small-spacing { -fx-spacing: 5px; }
+.medium-spacing { -fx-spacing: 10px; }
+.large-spacing { -fx-spacing: 15px; }
+
+.small-padding { -fx-padding: 5px; }
+.medium-padding { -fx-padding: 10px; }
+.large-padding { -fx-padding: 15px; }
+
+/* ===== SIMPLE RESPONSIVE BEHAVIOR ===== */
+.responsive-panel {
+    -fx-min-width: 300px;
+    -fx-pref-width: 400px;
+}
+
+.responsive-form {
+    -fx-min-width: 250px;
+    -fx-max-width: 500px;
+}
