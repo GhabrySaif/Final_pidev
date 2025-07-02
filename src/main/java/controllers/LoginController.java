@@ -60,7 +60,7 @@ public class LoginController {
         }
     }
 
-    // Méthode pour rediriger l'utilisateur vers la page correspondante en fonction
+    // Méthode pour la redirection l'utilisateur vers la page correspondante en fonction
     // de son rôle
     private void redirectToAppropriatePage(Utilisateur utilisateur) throws IOException {
         Stage stage = (Stage) loginButton.getScene().getWindow();

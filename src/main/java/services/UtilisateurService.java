@@ -60,7 +60,7 @@ public class UtilisateurService {
         return utilisateurDAO.supprimer(id);
     }
 
-    // Récupérer un utilisateur par ID
+    // Obtenir un utilisateur par ID
     public Utilisateur obtenirUtilisateurParId(int id) {
         return utilisateurDAO.obtenirParId(id);
     }
@@ -74,22 +74,22 @@ public class UtilisateurService {
         return utilisateur;
     }
 
-    // Récupérer tous les utilisateurs
+    // Obtenir tous les utilisateurs
     public List<Utilisateur> obtenirTousLesUtilisateurs() {
         return utilisateurDAO.obtenirTous();
     }
 
-    // Récupérer les clients uniquement
+    // Obtenir les clients uniquement
     public List<Utilisateur> obtenirClients() {
         return utilisateurDAO.obtenirParRole("Client");
     }
 
-    // Récupérer les livreurs uniquement
+    // Obtenir les livreurs uniquement
     public List<Utilisateur> obtenirLivreurs() {
         return utilisateurDAO.obtenirParRole("Livreur");
     }
 
-    // Récupérer les administrateurs uniquement
+    // Obtenir les administrateurs uniquement
     public List<Utilisateur> obtenirAdministrateurs() {
         return utilisateurDAO.obtenirParRole("Admin");
     }
