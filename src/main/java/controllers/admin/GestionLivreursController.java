@@ -23,7 +23,7 @@ public class GestionLivreursController {
     @FXML
     private TextField emailTextField;  // Champ pour saisir l'email de l'utilisateur
     @FXML
-    private TextField roleTextField;  // Champ pour saisir le rôle de l'utilisateur (ex : admin, client, livreur)
+    private TextField passwordTextField;  // Champ pour saisir le rôle de l'utilisateur (ex : admin, client, livreur)
     @FXML
     private Button updateUtilisateurButton;  // Bouton pour mettre à jour l'utilisateur
     @FXML
@@ -74,9 +74,10 @@ public class GestionLivreursController {
 
         String nom = nomTextField.getText();
         String email = emailTextField.getText();
-        String role = roleTextField.getText();
+        String role = "Livreur";
 
-        if (nom.isEmpty() || email.isEmpty() || role.isEmpty()) {
+
+        if (nom.isEmpty() || email.isEmpty()) {
             showAlert(AlertType.WARNING, "Informations manquantes", "Tous les champs doivent être remplis.");
             return;
         }
@@ -121,26 +122,24 @@ public class GestionLivreursController {
     private void handleAddUtilisateur() {
         String username = nomTextField.getText();
         String email = emailTextField.getText();
-        String role = roleTextField.getText();
+        String password = passwordTextField.getText();
+        String role = "Livreur";
 
-        if (username.isEmpty() || email.isEmpty() || role.isEmpty()) {
+        if (username.isEmpty() || email.isEmpty() || password.isEmpty()) {
             showAlert(AlertType.WARNING, "Informations manquantes", "Tous les champs doivent être remplis.");
             return;
         }
-
-        // Créer un mot de passe par défaut
-        String defaultPassword = username + "123";
 
         System.out.println("Tentative d'ajout d'utilisateur depuis le contrôleur:");
         System.out.println("  Username: " + username);
         System.out.println("  Email: " + email);
         System.out.println("  Role: " + role);
 
-        boolean added = utilisateurService.ajouterUtilisateur(username, email, defaultPassword, role);
+        boolean added = utilisateurService.ajouterUtilisateur(username, email, password, role);
 
         if (added) {
             showAlert(AlertType.INFORMATION, "Livreur ajouté",
-                     "Le livreur a été ajouté avec succès.\nMot de passe par défaut: " + defaultPassword);
+                     "Le livreur a été ajouté avec succès.\nMot de passe par défaut: " + password);
             refreshUtilisateursList();
             clearFields();
         } else {
@@ -158,7 +157,7 @@ public class GestionLivreursController {
     private void clearFields() {
         nomTextField.clear();
         emailTextField.clear();
-        roleTextField.clear();
+        passwordTextField.clear();
         utilisateurDetailsTextArea.clear();
     }
 

@@ -5,8 +5,8 @@ import java.util.Objects;
 
 public class Historique {
     private int id;
-    private int livraisonId;  // Référence vers la livraison concernée
-    private String statut;  // Statut de la livraison à ce moment
+    private int livraisonId;
+    private String statut;
     private LocalDateTime dateAction;
 
     // Constructeur par défaut
@@ -34,9 +34,9 @@ public class Historique {
         return livraisonId;
     }
 
-    public void setLivraisonId(int livraisonId) {
-        this.livraisonId = livraisonId;
-    }
+//    public void setLivraisonId(int livraisonId) {
+//        this.livraisonId = livraisonId;
+//    }
 
     public String getStatut() {
         return statut;
@@ -50,9 +50,9 @@ public class Historique {
         return dateAction;
     }
 
-    public void setDateAction(LocalDateTime dateAction) {
-        this.dateAction = dateAction;
-    }
+//    public void setDateAction(LocalDateTime dateAction) {
+//        this.dateAction = dateAction;
+//    }
 
     // Méthode toString pour affichage
     @Override
@@ -74,8 +74,8 @@ public class Historique {
         return id == that.id;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(id);
+//    }
 }

@@ -6,9 +6,9 @@ import java.sql.SQLException;
 
 public class DatabaseConnection {
 
-    private static final String URL = "jdbc:mysql://localhost:3306/pidev"; // Remplacez avec votre URL de base de données
-    private static final String USER = "root";  // Remplacez avec votre utilisateur
-    private static final String PASSWORD = "";  // Remplacez avec votre mot de passe
+    private static final String URL = "jdbc:mysql://localhost:3306/deliverymanagement";
+    private static final String USER = "root";
+    private static final String PASSWORD = "";
 
     private static Connection connection = null;
 
@@ -24,30 +24,30 @@ public class DatabaseConnection {
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 // Création de la connexion
                 connection = DriverManager.getConnection(URL, USER, PASSWORD);
-                System.out.println("✅ Connexion à la base de données établie avec succès.");
+                System.out.println("Connexion à la base de données établie avec succès.");
 
                 // Test de la connexion
                 if (connection != null && !connection.isClosed()) {
-                    System.out.println("✅ Connexion active et fonctionnelle.");
+                    System.out.println("Connexion active et fonctionnelle.");
                 }
             } catch (ClassNotFoundException e) {
-                System.err.println("❌ Driver JDBC non trouvé : " + e.getMessage());
+                System.err.println("Driver JDBC non trouvé : " + e.getMessage());
                 e.printStackTrace();
             } catch (SQLException e) {
-                System.err.println("❌ Erreur lors de la connexion à la base de données:");
-                System.err.println("   Code d'erreur: " + e.getErrorCode());
-                System.err.println("   Message: " + e.getMessage());
+                System.err.println("Erreur lors de la connexion à la base de données:");
+                System.err.println("Code d'erreur: " + e.getErrorCode());
+                System.err.println("Message: " + e.getMessage());
                 e.printStackTrace();
             }
         } else {
             try {
                 if (connection.isClosed()) {
-                    System.err.println("⚠️ Connexion fermée, tentative de reconnexion...");
+                    System.err.println("Connexion fermée, tentative de reconnexion...");
                     connection = null;
                     return getConnection(); // Récursion pour reconnecter
                 }
             } catch (SQLException e) {
-                System.err.println("❌ Erreur lors de la vérification de la connexion: " + e.getMessage());
+                System.err.println("Erreur lors de la vérification de la connexion: " + e.getMessage());
             }
         }
         return connection;

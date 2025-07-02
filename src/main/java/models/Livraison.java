@@ -61,13 +61,13 @@ public class Livraison {
         this.statut = statut;
     }
 
-    public String getDateDebut() {
-        return dateDebut;
-    }
-
-    public void setDateDebut(String dateDebut) {
-        this.dateDebut = dateDebut;
-    }
+//    public String getDateDebut() {
+//        return dateDebut;
+//    }
+//
+//    public void setDateDebut(String dateDebut) {
+//        this.dateDebut = dateDebut;
+//    }
 
     public String getDateLivraison() {
         return dateLivraison;
@@ -77,21 +77,21 @@ public class Livraison {
         this.dateLivraison = dateLivraison;
     }
 
-    public String getCommentaires() {
-        return commentaires;
-    }
-
-    public void setCommentaires(String commentaires) {
-        this.commentaires = commentaires;
-    }
-
-    public String getAdresseLivraison() {
-        return AdresseLivraison;
-    }
-
-    public void setAdresseLivraison(String adresseLivraison) {
-        this.AdresseLivraison = adresseLivraison;
-    }
+//    public String getCommentaires() {
+//        return commentaires;
+//    }
+//
+//    public void setCommentaires(String commentaires) {
+//        this.commentaires = commentaires;
+//    }
+//
+//    public String getAdresseLivraison() {
+//        return AdresseLivraison;
+//    }
+//
+//    public void setAdresseLivraison(String adresseLivraison) {
+//        this.AdresseLivraison = adresseLivraison;
+//    }
 
     // Méthode toString pour affichage
     @Override
@@ -118,8 +118,8 @@ public class Livraison {
         return id == livraison.id;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(id);
+//    }
 }

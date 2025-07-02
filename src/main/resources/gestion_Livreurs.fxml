@@ -53,14 +53,9 @@
 
                 <!-- Role Field -->
                 <VBox styleClass="field-group">
-                    <Label text="Rôle:"/>
-                    <TextField fx:id="roleTextField" text="Livreur" editable="false"
-                               style="-fx-background-color: #f5f5f5;"/>
+                    <Label text="Mot de Passe:"/>
+                    <TextField fx:id="passwordTextField" promptText="Mot de Passe"/>
                 </VBox>
-
-                <!-- Info Note -->
-                <Label text="Note: Un mot de passe par défaut sera généré (nom + 123)"
-                       style="-fx-font-size: 12px; -fx-text-fill: #666;"/>
             </VBox>
 
             <!-- Action Buttons -->

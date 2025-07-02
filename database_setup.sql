@@ -2,8 +2,8 @@
 -- Execute this script in your MySQL database
 
 -- Create and use database
-CREATE DATABASE IF NOT EXISTS pidev;
-USE pidev;
+CREATE DATABASE IF NOT EXISTS deliverymanagement;
+USE deliverymanagement;
 
 -- Drop existing tables if they exist (for clean setup)
 DROP TABLE IF EXISTS historique_livraisons;

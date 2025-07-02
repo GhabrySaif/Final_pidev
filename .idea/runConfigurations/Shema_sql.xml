@@ -1,0 +1,8 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Shema.sql" type="DatabaseScript" editBeforeRun="true" nameIsGenerated="true">
+    <script-file value="$PROJECT_DIR$/src/main/java/database/Shema.sql" />
+    <script-mode>FILE</script-mode>
+    <data-source id="b74088f8-1f41-4eb6-a872-639af7e3107b" />
+    <method v="2" />
+  </configuration>
+</component>

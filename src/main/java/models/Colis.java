@@ -111,18 +111,4 @@ public class Colis {
                 ", dateCreation='" + dateCreation + '\'' +
                 '}';
     }
-
-    // Méthodes equals et hashCode pour comparer les objets Colis
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        Colis colis = (Colis) o;
-//        return id == colis.id && Objects.equals(codeSuivi, colis.codeSuivi);
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(id, codeSuivi);
-//    }
 }
