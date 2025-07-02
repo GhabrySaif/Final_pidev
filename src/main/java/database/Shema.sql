@@ -1,6 +1,6 @@
 -- Création de la base de données
-CREATE DATABASE IF NOT EXISTS gestion_colis;
-USE pidev;
+CREATE DATABASE IF NOT EXISTS deliverymanagement;
+USE deliverymanagement;
 
 -- Création de la table Utilisateurs
 CREATE TABLE IF NOT EXISTS utilisateurs (
@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS colis (
     description TEXT,
     poids DECIMAL(10, 2) NOT NULL,
     volume DECIMAL(10, 3) NOT NULL,
-    adresse_destination VARCHAR(500) NOT NULL,
+    adresse_destination VARCHAR(500) DEFAULT '',
     statut ENUM('En attente', 'En transit', 'Livré', 'Annulé') DEFAULT 'En attente',
     date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id) ON DELETE CASCADE

@@ -43,14 +43,6 @@
             <Button fx:id="loginButton" text="Se Connecter" onAction="#handleLogin"
                     styleClass="add-button,full-width"/>
         </VBox>
-
-        <!-- Demo Credentials -->
-        <VBox styleClass="form-section" maxWidth="400">
-            <Label text="Comptes de démonstration:" styleClass="section-label"/>
-            <Label text="Admin: admin / admin123" style="-fx-font-size: 12px;"/>
-            <Label text="Client: client1 / client1123" style="-fx-font-size: 12px;"/>
-            <Label text="Livreur: livreur1 / livreur1123" style="-fx-font-size: 12px;"/>
-        </VBox>
     </VBox>
 
 </AnchorPane>
