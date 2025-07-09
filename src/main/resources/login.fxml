@@ -1,48 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0"
-            stylesheets="@simple-responsive.css" styleClass="main-container"
+            stylesheets="@simple-responsive.css"
+            styleClass="main-container"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LoginController">
 
-    <!-- Simple Login Layout -->
     <VBox AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
-          AnchorPane.bottomAnchor="0" styleClass="center-align" spacing="20">
+          AnchorPane.bottomAnchor="0" spacing="20" alignment="CENTER">
 
         <!-- Title -->
         <Label text="Système de Gestion des Colis" styleClass="title-label"/>
 
         <!-- Login Form -->
-        <VBox styleClass="content-panel,responsive-form" maxWidth="400">
+        <VBox styleClass="content-panel" spacing="15" maxWidth="400" alignment="CENTER">
+
             <Label text="Connexion" styleClass="section-label"/>
 
-            <!-- Username Field -->
-            <VBox styleClass="field-group">
-                <Label text="Nom d'utilisateur:"/>
-                <TextField fx:id="usernameField" promptText="Entrez votre nom d'utilisateur"/>
+            <!-- Email Field -->
+            <VBox spacing="5">
+                <Label text="Email:"/>
+                <TextField fx:id="emailField" promptText="Entrez votre email"/>
             </VBox>
 
             <!-- Password Field -->
-            <VBox styleClass="field-group">
+            <VBox spacing="5">
                 <Label text="Mot de passe:"/>
                 <PasswordField fx:id="passwordField" promptText="Entrez votre mot de passe"/>
             </VBox>
 
-            <!-- Error Message -->
+            <!-- Error Label (Optional) -->
             <Label fx:id="errorLabel" text=""
-                   style="-fx-text-fill: #f44336; -fx-font-size: 14px; -fx-opacity: 0;" />
+                   style="-fx-text-fill: #f44336; -fx-font-size: 14px;"/>
 
             <!-- Login Button -->
             <Button fx:id="loginButton" text="Se Connecter" onAction="#handleLogin"
-                    styleClass="add-button,full-width"/>
+                    styleClass="add-button" maxWidth="Infinity"/>
+
+            <!-- Navigation Links -->
+            <HBox spacing="20" alignment="CENTER">
+                <Hyperlink text="Créer un compte" onAction="#goToRegister"/>
+                <Hyperlink text="Mot de passe oublié ?" onAction="#goToForgetPassword"/>
+            </HBox>
+
         </VBox>
     </VBox>
-
 </AnchorPane>

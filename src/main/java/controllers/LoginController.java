@@ -2,11 +2,7 @@ package controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,95 +11,105 @@ import services.UtilisateurService;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Objects;
 
 public class LoginController {
 
     @FXML
-    private TextField usernameField; // Champ pour le nom d'utilisateur
+    private TextField emailField; // Email de l'utilisateur
     @FXML
-    private PasswordField passwordField; // Champ pour le mot de passe
+    private PasswordField passwordField; // Mot de passe
     @FXML
     private Button loginButton; // Bouton de connexion
 
-    private UtilisateurService utilisateurService;
+    private final UtilisateurService utilisateurService = new UtilisateurService();
 
-    public LoginController() {
-        utilisateurService = new UtilisateurService();
-    }
-
-    // Méthode appelée lors du clic sur le bouton de connexion
+    // Connexion
     @FXML
     private void handleLogin() throws IOException {
-        String username = usernameField.getText();
-        String password = passwordField.getText();
+        String email = emailField.getText().trim();
+        String password = passwordField.getText().trim();
 
-        if (username.isEmpty() || password.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Champs manquants");
-            alert.setHeaderText(null);
-            alert.setContentText("Veuillez entrer votre nom d'utilisateur et votre mot de passe.");
-            alert.show();
+        if (email.isEmpty() || password.isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "Champs manquants", "Veuillez entrer votre email et votre mot de passe.");
             return;
         }
-        // Vérification des informations d'identification
-        Utilisateur utilisateur = utilisateurService.authentifierUtilisateur(username, password);
+
+        Utilisateur utilisateur = utilisateurService.authentifierUtilisateur(email, password);
         if (utilisateur != null) {
-            // Rediriger vers l'écran approprié en fonction du rôle
             redirectToAppropriatePage(utilisateur);
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Authentification échouée");
-            alert.setHeaderText(null);
-            alert.setContentText("Nom d'utilisateur ou mot de passe incorrect.");
-            alert.show();
+            showAlert(Alert.AlertType.ERROR, "Échec de la connexion", "Email ou mot de passe incorrect.");
         }
     }
 
-    // Méthode pour la redirection l'utilisateur vers la page correspondante en fonction
-    // de son rôle
+    // Rediriger en fonction du rôle
     private void redirectToAppropriatePage(Utilisateur utilisateur) throws IOException {
         Stage stage = (Stage) loginButton.getScene().getWindow();
-        System.out.println(utilisateur.getRole());
+        String fxmlPath;
 
-        String fxmlPath = "";
         switch (utilisateur.getRole().toLowerCase()) {
             case "admin" -> fxmlPath = "/admin_dashboard.fxml";
             case "livreur" -> fxmlPath = "/livreur_dashboard.fxml";
             case "client" -> fxmlPath = "/client_dashboard.fxml";
             default -> {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Erreur de rôle");
-                alert.setHeaderText(null);
-                alert.setContentText("Rôle utilisateur non reconnu: " + utilisateur.getRole());
-                alert.show();
+                showAlert(Alert.AlertType.ERROR, "Rôle non reconnu", "Rôle: " + utilisateur.getRole());
                 return;
             }
         }
 
-        // Vérifier si le fichier existe
         URL fxmlUrl = getClass().getResource(fxmlPath);
         if (fxmlUrl == null) {
-            System.err.println("FXML file not found: " + fxmlPath);
+            System.err.println("FXML non trouvé: " + fxmlPath);
             return;
         }
 
-        FXMLLoader fxmlLoader = new FXMLLoader(fxmlUrl);
-        Scene scene = new Scene(fxmlLoader.load());
+        FXMLLoader loader = new FXMLLoader(fxmlUrl);
+        Scene scene = new Scene(loader.load());
 
-        // Passer l'utilisateur au contrôleur approprié
+        // Injection utilisateur dans le contrôleur
         String role = utilisateur.getRole().toLowerCase();
-        if (role.equals("client")) {
-            controllers.client.ClientDashboardController controller = fxmlLoader.getController();
-            controller.setCurrentUser(utilisateur);
-        } else if (role.equals("livreur")) {
-            controllers.livreur.LivreurDashboardController controller = fxmlLoader.getController();
-            controller.setCurrentUser(utilisateur);
+        switch (role) {
+            case "client" -> loader.<controllers.client.ClientDashboardController>getController().setCurrentUser(utilisateur);
+            case "livreur" -> loader.<controllers.livreur.LivreurDashboardController>getController().setCurrentUser(utilisateur);
+            // Pas de besoin de setter pour admin ici si non nécessaire
         }
 
         stage.setScene(scene);
-        stage.setTitle("Tableau de Bord - " + utilisateur.getRole());
+        stage.setTitle("Dashboard - " + utilisateur.getRole());
         stage.show();
     }
 
+    // Aller vers inscription
+    @FXML
+    private void goToRegister() throws IOException {
+        changeScene("/register.fxml", "Inscription");
+    }
+
+    // Aller vers mot de passe oublié
+    @FXML
+    private void goToForgetPassword() throws IOException {
+        changeScene("/forget_password.fxml", "Mot de passe oublié");
+    }
+
+    private void changeScene(String fxmlPath, String title) throws IOException {
+        URL fxmlUrl = getClass().getResource(fxmlPath);
+        if (fxmlUrl == null) {
+            System.err.println("FXML non trouvé: " + fxmlPath);
+            return;
+        }
+
+        Parent root = FXMLLoader.load(fxmlUrl);
+        Stage stage = (Stage) loginButton.getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.setTitle(title);
+        stage.show();
+    }
+
+    private void showAlert(Alert.AlertType type, String title, String content) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.show();
+    }
 }
