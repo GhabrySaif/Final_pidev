@@ -11,9 +11,11 @@ import java.io.IOException;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        // Load icon from resources (recommended approach)
+        // Load your custom icon
         try {
-            Image appIcon = new Image(getClass().getResourceAsStream("/image.jpg"));
+            // Replace with your actual full path
+            String iconPath = "file:///C:/Users/Lenovo/Downloads/R.png";
+            Image appIcon = new Image(iconPath);
             stage.getIcons().add(appIcon);
         } catch (Exception e) {
             System.out.println("Could not load custom icon: " + e.getMessage());
