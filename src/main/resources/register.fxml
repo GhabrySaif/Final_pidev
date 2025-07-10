@@ -30,3 +30,4 @@
         <Button text="Retour" onAction="#handleBackToLogin" styleClass="back-button"/>
     </VBox>
 </AnchorPane>
+
