@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.RegisterController"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <VBox alignment="CENTER" spacing="15"
+          AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
+          AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+
+        <padding>
+            <Insets top="20" right="20" bottom="20" left="20"/>
+        </padding>
+
+        <Label text="Créer un Compte" styleClass="title-label"/>
+
+        <VBox spacing="10" maxWidth="400">
+            <TextField fx:id="usernameField" promptText="Nom d'utilisateur"/>
+            <TextField fx:id="emailField" promptText="Email"/>
+            <PasswordField fx:id="passwordField" promptText="Mot de passe"/>
+            <ChoiceBox fx:id="roleBox"/>
+        </VBox>
+
+        <Label fx:id="errorLabel" style="-fx-text-fill: red;"/>
+
+        <Button text="S'inscrire" onAction="#handleRegister" styleClass="add-button"/>
+        <Button text="Retour" onAction="#handleBackToLogin" styleClass="back-button"/>
+    </VBox>
+</AnchorPane>

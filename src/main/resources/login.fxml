@@ -3,48 +3,48 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0"
-            stylesheets="@simple-responsive.css"
-            styleClass="main-container"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LoginController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.LoginController"
+            prefWidth="800.0" prefHeight="400.0">
 
-    <VBox AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
-          AnchorPane.bottomAnchor="0" spacing="20" alignment="CENTER">
+    <VBox alignment="CENTER" spacing="20"
+          AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
+          AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
 
-        <!-- Title -->
-        <Label text="Système de Gestion des Colis" styleClass="title-label"/>
+        <padding>
+            <Insets top="40" bottom="40" left="60" right="60"/>
+        </padding>
 
-        <!-- Login Form -->
-        <VBox styleClass="content-panel" spacing="15" maxWidth="400" alignment="CENTER">
+        <!-- App Title -->
+        <Label text="Système de Gestion des Colis"
+               style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
 
-            <Label text="Connexion" styleClass="section-label"/>
+        <!-- Form Section -->
+        <VBox spacing="15" maxWidth="400">
 
-            <!-- Email Field -->
+            <!-- Email -->
             <VBox spacing="5">
-                <Label text="Email:"/>
+                <Label text="Email :"/>
                 <TextField fx:id="emailField" promptText="Entrez votre email"/>
             </VBox>
 
-            <!-- Password Field -->
+            <!-- Password -->
             <VBox spacing="5">
-                <Label text="Mot de passe:"/>
+                <Label text="Mot de passe :"/>
                 <PasswordField fx:id="passwordField" promptText="Entrez votre mot de passe"/>
             </VBox>
 
-            <!-- Error Label (Optional) -->
-            <Label fx:id="errorLabel" text=""
-                   style="-fx-text-fill: #f44336; -fx-font-size: 14px;"/>
-
-            <!-- Login Button -->
-            <Button fx:id="loginButton" text="Se Connecter" onAction="#handleLogin"
-                    styleClass="add-button" maxWidth="Infinity"/>
-
-            <!-- Navigation Links -->
-            <HBox spacing="20" alignment="CENTER">
-                <Hyperlink text="Créer un compte" onAction="#goToRegister"/>
-                <Hyperlink text="Mot de passe oublié ?" onAction="#goToForgetPassword"/>
-            </HBox>
-
         </VBox>
+
+        <!-- Login Button -->
+        <Button fx:id="loginButton" text="Se connecter"
+                onAction="#handleLogin"
+                style="-fx-pref-width: 200px; -fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+
+        <!-- Navigation Links -->
+        <HBox spacing="10" alignment="CENTER">
+            <Hyperlink text="S'inscrire" onAction="#goToRegister"/>
+            <Hyperlink text="Mot de passe oublié ?" onAction="#goToForgetPassword"/>
+        </HBox>
     </VBox>
 </AnchorPane>

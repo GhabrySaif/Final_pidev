@@ -1,10 +1,11 @@
+// CONTROLLER: LoginController.java
 package controllers;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import models.Utilisateur;
 import services.UtilisateurService;
@@ -15,15 +16,14 @@ import java.net.URL;
 public class LoginController {
 
     @FXML
-    private TextField emailField; // Email de l'utilisateur
+    private TextField emailField;
     @FXML
-    private PasswordField passwordField; // Mot de passe
+    private PasswordField passwordField;
     @FXML
-    private Button loginButton; // Bouton de connexion
+    private Button loginButton;
 
     private final UtilisateurService utilisateurService = new UtilisateurService();
 
-    // Connexion
     @FXML
     private void handleLogin() throws IOException {
         String email = emailField.getText().trim();
@@ -42,7 +42,6 @@ public class LoginController {
         }
     }
 
-    // Rediriger en fonction du rôle
     private void redirectToAppropriatePage(Utilisateur utilisateur) throws IOException {
         Stage stage = (Stage) loginButton.getScene().getWindow();
         String fxmlPath;
@@ -65,27 +64,16 @@ public class LoginController {
 
         FXMLLoader loader = new FXMLLoader(fxmlUrl);
         Scene scene = new Scene(loader.load());
-
-        // Injection utilisateur dans le contrôleur
-        String role = utilisateur.getRole().toLowerCase();
-        switch (role) {
-            case "client" -> loader.<controllers.client.ClientDashboardController>getController().setCurrentUser(utilisateur);
-            case "livreur" -> loader.<controllers.livreur.LivreurDashboardController>getController().setCurrentUser(utilisateur);
-            // Pas de besoin de setter pour admin ici si non nécessaire
-        }
-
         stage.setScene(scene);
         stage.setTitle("Dashboard - " + utilisateur.getRole());
         stage.show();
     }
 
-    // Aller vers inscription
     @FXML
     private void goToRegister() throws IOException {
         changeScene("/register.fxml", "Inscription");
     }
 
-    // Aller vers mot de passe oublié
     @FXML
     private void goToForgetPassword() throws IOException {
         changeScene("/forget_password.fxml", "Mot de passe oublié");
