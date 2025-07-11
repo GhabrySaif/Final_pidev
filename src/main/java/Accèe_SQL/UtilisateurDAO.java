@@ -2,37 +2,43 @@ package Accèe_SQL;
 
 import models.Utilisateur;
 import utils.DatabaseConnection;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.ResultSet;
+
 
 public class UtilisateurDAO {
     private final Connection connection;
 
-    // Initialisation de la connexion à la base de données
+    // Constructeur qui initialise la connexion à la base de données
     public UtilisateurDAO() {
         connection = DatabaseConnection.getConnection();
     }
 
-    // Ajouter un utilisateur
+    // Ajouter un utilisateur dans la base de données
     public boolean ajouter(Utilisateur utilisateur) {
         if (connection == null) {
-            System.err.println("Erreur: Connexion à la base de données non établie.");
+            System.err.println("Erreur: Connexion à la base de données non établie");
             return false;
         }
 
         String query = "INSERT INTO utilisateurs (username, email, password, role) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            System.out.println("Tentative d'ajout utilisateur: " + utilisateur.getUsername() + ", " + utilisateur.getEmail() + ", " + utilisateur.getRole());
+
             stmt.setString(1, utilisateur.getUsername());
             stmt.setString(2, utilisateur.getEmail());
             stmt.setString(3, utilisateur.getPassword());
             stmt.setString(4, utilisateur.getRole());
 
             int result = stmt.executeUpdate();
+            System.out.println("Résultat de l'insertion: " + result + " ligne(s) affectée(s)");
             return result > 0;
         } catch (SQLException e) {
             System.err.println("Erreur SQL lors de l'ajout de l'utilisateur:");
+            System.err.println("Code d'erreur: " + e.getErrorCode());
+            System.err.println("Message: " + e.getMessage());
             e.printStackTrace();
         }
         return false;
@@ -54,7 +60,7 @@ public class UtilisateurDAO {
         return false;
     }
 
-    // Supprimer un utilisateur
+    // Supprimer un utilisateur par ID
     public boolean supprimer(int id) {
         String query = "DELETE FROM utilisateurs WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
@@ -66,7 +72,7 @@ public class UtilisateurDAO {
         return false;
     }
 
-    // Obtenir un utilisateur par ID
+    // Récupérer un utilisateur par ID
     public Utilisateur obtenirParId(int id) {
         String query = "SELECT * FROM utilisateurs WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
@@ -87,11 +93,11 @@ public class UtilisateurDAO {
         return null;
     }
 
-    // Authentifier un utilisateur via email et mot de passe
-    public Utilisateur authentifier(String email, String password) {
-        String query = "SELECT * FROM utilisateurs WHERE email = ? AND password = ?";
+    // Récupérer un utilisateur par email et mot de passe (authentification)
+    public Utilisateur authentifier(String username, String password) {
+        String query = "SELECT * FROM utilisateurs WHERE username = ? AND password = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setString(1, email);
+            stmt.setString(1, username);
             stmt.setString(2, password);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -109,13 +115,15 @@ public class UtilisateurDAO {
         return null;
     }
 
-    // Vérifier si un nom d'utilisateur existe
+    // Vérifier si un nom d'utilisateur existe déjà
     public boolean usernameExists(String username) {
         String query = "SELECT COUNT(*) FROM utilisateurs WHERE username = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, username);
             ResultSet rs = stmt.executeQuery();
-            if (rs.next()) return rs.getInt(1) > 0;
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
         } catch (SQLException e) {
             System.err.println("Erreur lors de la vérification du nom d'utilisateur: " + e.getMessage());
             e.printStackTrace();
@@ -123,24 +131,10 @@ public class UtilisateurDAO {
         return false;
     }
 
-    // Vérifier si un email existe
-    public boolean emailExists(String email) {
-        String query = "SELECT COUNT(*) FROM utilisateurs WHERE email = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setString(1, email);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) return rs.getInt(1) > 0;
-        } catch (SQLException e) {
-            System.err.println("Erreur lors de la vérification de l'email: " + e.getMessage());
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    // Obtenir tous les utilisateurs
+    // Récupérer tous les utilisateurs
     public List<Utilisateur> obtenirTous() {
         List<Utilisateur> utilisateurs = new ArrayList<>();
-        String query = "SELECT * FROM utilisateurs ORDER BY username";
+        String query = "SELECT * FROM utilisateurs ORDER BY username ";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -158,7 +152,7 @@ public class UtilisateurDAO {
         return utilisateurs;
     }
 
-    // Obtenir utilisateurs par rôle
+    // Récupérer les utilisateurs par rôle
     public List<Utilisateur> obtenirParRole(String role) {
         List<Utilisateur> utilisateurs = new ArrayList<>();
         String query = "SELECT * FROM utilisateurs WHERE role = ? ORDER BY username";
@@ -175,7 +169,7 @@ public class UtilisateurDAO {
                 ));
             }
         } catch (SQLException e) {
-            System.err.println("Erreur lors de la récupération par rôle: " + e.getMessage());
+            System.err.println("Erreur lors de la récupération des utilisateurs par rôle: " + e.getMessage());
             e.printStackTrace();
         }
         return utilisateurs;
