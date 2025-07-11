@@ -3,31 +3,39 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="controllers.RegisterController"
             prefHeight="400.0" prefWidth="600.0">
 
     <VBox alignment="CENTER" spacing="15"
           AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
-          AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+          AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
+          maxWidth="500">
 
         <padding>
-            <Insets top="20" right="20" bottom="20" left="20"/>
+            <Insets top="20" right="30" bottom="20" left="30"/>
         </padding>
 
-        <Label text="Créer un Compte" styleClass="title-label"/>
+        <!-- Title -->
+        <Label text="Créer un Compte"
+               style="-fx-font-size: 22px; -fx-font-weight: bold;"/>
 
-        <VBox spacing="10" maxWidth="400">
+        <!-- Form Fields -->
+        <VBox spacing="10" maxWidth="300">
             <TextField fx:id="usernameField" promptText="Nom d'utilisateur"/>
             <TextField fx:id="emailField" promptText="Email"/>
             <PasswordField fx:id="passwordField" promptText="Mot de passe"/>
-            <ChoiceBox fx:id="roleBox"/>
+            <ChoiceBox fx:id="roleBox" prefWidth="300"/>
         </VBox>
 
-        <Label fx:id="errorLabel" style="-fx-text-fill: red;"/>
+        <!-- Feedback Label -->
+        <Label fx:id="errorLabel" wrapText="true"
+               style="-fx-text-fill: red; -fx-font-size: 13px;"/>
 
-        <Button text="S'inscrire" onAction="#handleRegister" styleClass="add-button"/>
-        <Button text="Retour" onAction="#handleBackToLogin" styleClass="back-button"/>
+        <!-- Buttons -->
+        <HBox spacing="20" alignment="CENTER">
+            <Button text="S'inscrire" onAction="#handleRegister" style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+            <Button text="Retour" onAction="#handleBackToLogin"/>
+        </HBox>
     </VBox>
 </AnchorPane>
-

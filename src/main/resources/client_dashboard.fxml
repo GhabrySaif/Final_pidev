@@ -12,34 +12,28 @@
             fx:controller="controllers.client.ClientDashboardController"
             styleClass="main-container">
 
-    <!-- Sidebar Menu -->
     <VBox fx:id="sideMenu" prefWidth="200.0" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0"
           AnchorPane.bottomAnchor="0" styleClass="nav-panel">
 
-        <!-- Header -->
         <Label text="Client Dashboard" styleClass="title-label"/>
 
-        <!-- Navigation Buttons -->
         <VBox styleClass="simple-vbox">
             <Button fx:id="mesColisBtn" onAction="#handleMesColis" text="Mes Colis"
-                    styleClass="nav-button,full-width"/>
+                    styleClass="nav-button full-width"/>
             <Button fx:id="ajouterColisBtn" onAction="#handleAjouterColis" text="Ajouter un Colis"
-                    styleClass="nav-button,full-width"/>
+                    styleClass="nav-button full-width"/>
             <Button fx:id="suivreColisBtn" onAction="#handleSuivreColis" text="Suivre un Colis"
-                    styleClass="nav-button,full-width"/>
+                    styleClass="nav-button full-width"/>
             <Button fx:id="profilBtn" onAction="#handleMonProfil" text="Mon Profil"
-                    styleClass="nav-button,full-width"/>
+                    styleClass="nav-button full-width"/>
         </VBox>
 
-        <!-- Spacer -->
         <Region VBox.vgrow="ALWAYS"/>
 
-        <!-- Logout Button -->
         <Button fx:id="deconnexionBtn" onAction="#handleDeconnexion" text="Déconnexion"
-                styleClass="delete-button,full-width"/>
+                styleClass="delete-button full-width"/>
     </VBox>
 
-    <!-- Content Pane for Dynamic Views -->
     <AnchorPane fx:id="contentPane" AnchorPane.topAnchor="0" AnchorPane.rightAnchor="0"
                 AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="200.0" />
 </AnchorPane>

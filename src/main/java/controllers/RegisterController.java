@@ -34,9 +34,25 @@ public class RegisterController {
         String password = passwordField.getText().trim();
         String role = roleBox.getValue();
 
-        if (utilisateurService.ajouterUtilisateur(username, email, password, role)) {
+        // Basic input validation
+        if (username.isEmpty() || email.isEmpty() || password.isEmpty() || role == null) {
+            errorLabel.setStyle("-fx-text-fill: red;");
+            errorLabel.setText("Veuillez remplir tous les champs.");
+            return;
+        }
+
+        if (!email.matches("[\\w.-]+@[\\w.-]+\\.\\w+")) {
+            errorLabel.setStyle("-fx-text-fill: red;");
+            errorLabel.setText("Format d'email invalide.");
+            return;
+        }
+
+        boolean success = utilisateurService.ajouterUtilisateur(username, email, password, role);
+
+        if (success) {
             errorLabel.setStyle("-fx-text-fill: green;");
             errorLabel.setText("Inscription réussie !");
+            // Optionally, clear fields or redirect to login automatically
         } else {
             errorLabel.setStyle("-fx-text-fill: red;");
             errorLabel.setText("Erreur: vérifiez les champs ou email déjà utilisé.");
@@ -44,14 +60,21 @@ public class RegisterController {
     }
 
     @FXML
-    private void handleBackToLogin() throws IOException {
-        URL fxmlUrl = getClass().getResource("/login.fxml");
-        if (fxmlUrl != null) {
+    private void handleBackToLogin() {
+        try {
+            URL fxmlUrl = getClass().getResource("/login.fxml");
+            if (fxmlUrl == null) {
+                throw new IOException("FXML file not found");
+            }
             Parent root = FXMLLoader.load(fxmlUrl);
             Stage stage = (Stage) usernameField.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Connexion");
             stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            errorLabel.setStyle("-fx-text-fill: red;");
+            errorLabel.setText("Erreur lors du chargement de la page de connexion.");
         }
     }
 }
