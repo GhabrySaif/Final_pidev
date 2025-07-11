@@ -11,7 +11,6 @@ import java.net.URL;
 
 public class HelloApplication extends Application {
 
-    @Override
     public void start(Stage stage) {
         try {
             // Load custom app icon

@@ -1,4 +1,3 @@
-// CONTROLLER: LoginController.java
 package controllers;
 
 import javafx.fxml.FXML;
@@ -17,15 +16,21 @@ public class LoginController {
 
     @FXML
     private TextField emailField;
+
     @FXML
     private PasswordField passwordField;
+
     @FXML
     private Button loginButton;
 
     private final UtilisateurService utilisateurService = new UtilisateurService();
 
+    private static final String ROLE_ADMIN = "admin";
+    private static final String ROLE_CLIENT = "client";
+    private static final String ROLE_LIVREUR = "livreur";
+
     @FXML
-    private void handleLogin() throws IOException {
+    private void handleLogin() {
         String email = emailField.getText().trim();
         String password = passwordField.getText().trim();
 
@@ -34,56 +39,84 @@ public class LoginController {
             return;
         }
 
-        Utilisateur utilisateur = utilisateurService.authentifierUtilisateur(email, password);
-        if (utilisateur != null) {
-            redirectToAppropriatePage(utilisateur);
-        } else {
-            showAlert(Alert.AlertType.ERROR, "Échec de la connexion", "Email ou mot de passe incorrect.");
+        try {
+            Utilisateur utilisateur = utilisateurService.authentifierUtilisateur(email, password);
+            if (utilisateur != null) {
+                redirectToAppropriatePage(utilisateur);
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Échec de la connexion", "Email ou mot de passe incorrect.");
+            }
+        } catch (IOException e) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Une erreur s'est produite: " + e.getMessage());
         }
     }
 
     private void redirectToAppropriatePage(Utilisateur utilisateur) throws IOException {
         Stage stage = (Stage) loginButton.getScene().getWindow();
-        String fxmlPath;
+        String role = utilisateur.getRole().toLowerCase();
 
-        switch (utilisateur.getRole().toLowerCase()) {
-            case "admin" -> fxmlPath = "/admin_dashboard.fxml";
-            case "livreur" -> fxmlPath = "/livreur_dashboard.fxml";
-            case "client" -> fxmlPath = "/client_dashboard.fxml";
-            default -> {
-                showAlert(Alert.AlertType.ERROR, "Rôle non reconnu", "Rôle: " + utilisateur.getRole());
+        switch (role) {
+            case ROLE_ADMIN:
+                loadScene(stage, "/admin_dashboard.fxml");
+                break;
+
+            case ROLE_CLIENT:
+                loadClientScene(stage, "/client_dashboard.fxml", utilisateur);
+                break;
+
+            case ROLE_LIVREUR:
+                loadScene(stage, "/livreur_dashboard.fxml");
+                break;
+
+            default:
+                showAlert(Alert.AlertType.ERROR, "Rôle inconnu", "Rôle: " + role);
                 return;
-            }
         }
 
-        URL fxmlUrl = getClass().getResource(fxmlPath);
-        if (fxmlUrl == null) {
-            System.err.println("FXML non trouvé: " + fxmlPath);
-            return;
-        }
-
-        FXMLLoader loader = new FXMLLoader(fxmlUrl);
-        Scene scene = new Scene(loader.load());
-        stage.setScene(scene);
-        stage.setTitle("Dashboard - " + utilisateur.getRole());
+        stage.setTitle("Dashboard - " + capitalizeFirstLetter(role));
         stage.show();
     }
 
-    @FXML
-    private void goToRegister() throws IOException {
-        changeScene("/register.fxml", "Inscription");
+    private void loadScene(Stage stage, String fxmlPath) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+        Parent root = loader.load();
+        stage.setScene(new Scene(root));
+    }
+
+    private void loadClientScene(Stage stage, String fxmlPath, Utilisateur utilisateur) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+        Parent root = loader.load();
+
+        Object controller = loader.getController();
+        if (controller instanceof controllers.client.ClientDashboardController) {
+            ((controllers.client.ClientDashboardController) controller).setCurrentUser(utilisateur);
+        }
+
+        stage.setScene(new Scene(root));
     }
 
     @FXML
-    private void goToForgetPassword() throws IOException {
-        changeScene("/forget_password.fxml", "Mot de passe oublié");
+    private void goToRegister() {
+        try {
+            changeScene("/register.fxml", "Inscription");
+        } catch (IOException e) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible de charger la page d'inscription: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    private void goToForgetPassword() {
+        try {
+            changeScene("/forget_password.fxml", "Mot de passe oublié");
+        } catch (IOException e) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible de charger la page de récupération: " + e.getMessage());
+        }
     }
 
     private void changeScene(String fxmlPath, String title) throws IOException {
         URL fxmlUrl = getClass().getResource(fxmlPath);
         if (fxmlUrl == null) {
-            System.err.println("FXML non trouvé: " + fxmlPath);
-            return;
+            throw new IOException("FXML non trouvé: " + fxmlPath);
         }
 
         Parent root = FXMLLoader.load(fxmlUrl);
@@ -98,6 +131,11 @@ public class LoginController {
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(content);
-        alert.show();
+        alert.showAndWait();
+    }
+
+    private String capitalizeFirstLetter(String str) {
+        if (str == null || str.isEmpty()) return str;
+        return str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
     }
 }
