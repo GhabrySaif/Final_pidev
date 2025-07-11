@@ -7,16 +7,27 @@ public class Utilisateur {
     private String username;
     private String email;
     private String password;
-    private String role; // "Admin", "Client" ou "Livreur"
+    private String role; // "Admin", "Client", or "Livreur"
 
-    public Utilisateur() {
-    }
+    // Optional: useful for password reset in the future
+    private String securityQuestion;
+    private String securityAnswer;
+
+    // Constructors
+    public Utilisateur() {}
 
     public Utilisateur(int id, String username, String email, String password, String role) {
         this.id = id;
         this.username = username;
-        this.password = password;
         this.email = email;
+        this.password = password;
+        this.role = role;
+    }
+
+    public Utilisateur(String username, String email, String password, String role) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
         this.role = role;
     }
 
@@ -26,39 +37,37 @@ public class Utilisateur {
         this.role = role;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    // Getters
+    public int getId() { return id; }
 
-    public void setRole(String role) {
-        this.role = role;
-    }
+    public String getUsername() { return username; }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    public String getEmail() { return email; }
+
+    public String getPassword() { return password; }
+
+    public String getRole() { return role; }
+
+    public String getSecurityQuestion() { return securityQuestion; }
+
+    public String getSecurityAnswer() { return securityAnswer; }
+
+    // Setters
+    public void setId(int id) { this.id = id; }
 
     public void setUsername(String username) { this.username = username; }
 
+    public void setEmail(String email) { this.email = email; }
+
     public void setPassword(String password) { this.password = password; }
 
-    public String getUsername() { return username;}
+    public void setRole(String role) { this.role = role; }
 
-    public String getEmail() {
-        return email;
-    }
+    public void setSecurityQuestion(String securityQuestion) { this.securityQuestion = securityQuestion; }
 
-    public int getId() {
-        return id;
-    }
+    public void setSecurityAnswer(String securityAnswer) { this.securityAnswer = securityAnswer; }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public String getRole() { return role;}
-
-    // Méthode toString pour affichage
+    // toString
     @Override
     public String toString() {
         return "Utilisateur{" +
@@ -69,17 +78,17 @@ public class Utilisateur {
                 '}';
     }
 
-    // Méthodes equals et hashCode pour comparer les objets Utilisateur
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        Utilisateur that = (Utilisateur) o;
-//        return id == that.id && Objects.equals(email, that.email);
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(id, email);
-//    }
+    // equals and hashCode (based on ID and email)
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Utilisateur)) return false;
+        Utilisateur that = (Utilisateur) o;
+        return id == that.id && Objects.equals(email, that.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, email);
+    }
 }

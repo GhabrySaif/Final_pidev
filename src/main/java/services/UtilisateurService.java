@@ -2,17 +2,18 @@ package services;
 
 import Accèe_SQL.UtilisateurDAO;
 import models.Utilisateur;
+
 import java.util.List;
 
 public class UtilisateurService {
     private final UtilisateurDAO utilisateurDAO;
 
-    // Constructeur qui initialise le DAO
+    // Constructeur
     public UtilisateurService() {
-        utilisateurDAO = new UtilisateurDAO();
+        this.utilisateurDAO = new UtilisateurDAO();
     }
 
-    // Ajouter un utilisateur
+    // Ajouter un utilisateur (inscription)
     public boolean ajouterUtilisateur(String nom, String email, String motDePasse, String role) {
         System.out.println("UtilisateurService.ajouterUtilisateur appelé avec:");
         System.out.println("  Nom: '" + nom + "'");
@@ -21,20 +22,25 @@ public class UtilisateurService {
         System.out.println("  Rôle: '" + role + "'");
 
         if (nom == null || nom.trim().isEmpty() ||
-            email == null || email.trim().isEmpty() ||
-            motDePasse == null || motDePasse.trim().isEmpty() ||
-            role == null || role.trim().isEmpty()) {
+                email == null || email.trim().isEmpty() ||
+                motDePasse == null || motDePasse.trim().isEmpty() ||
+                role == null || role.trim().isEmpty()) {
             System.err.println("Erreur: Tous les champs sont obligatoires.");
             return false;
         }
 
-        // Vérifier si le nom d'utilisateur existe déjà
+        // Vérifier si le nom d'utilisateur ou email existe déjà
         if (utilisateurDAO.usernameExists(nom.trim())) {
             System.err.println("Erreur: Le nom d'utilisateur '" + nom.trim() + "' existe déjà.");
             return false;
         }
 
-        Utilisateur utilisateur = new Utilisateur(0, nom.trim(), email.trim(), motDePasse.trim(), role.trim());
+        if (utilisateurDAO.emailExists(email.trim())) {
+            System.err.println("Erreur: L'email '" + email.trim() + "' est déjà utilisé.");
+            return false;
+        }
+
+        Utilisateur utilisateur = new Utilisateur(nom.trim(), email.trim(), motDePasse.trim(), role.trim());
         boolean result = utilisateurDAO.ajouter(utilisateur);
         System.out.println("Résultat de l'ajout: " + result);
         return result;
@@ -48,10 +54,11 @@ public class UtilisateurService {
             return false;
         }
 
-        utilisateur.setUsername(username);
-        utilisateur.setEmail(email);
-        utilisateur.setPassword(motDePasse);
-        utilisateur.setRole(role);
+        utilisateur.setUsername(username.trim());
+        utilisateur.setEmail(email.trim());
+        utilisateur.setPassword(motDePasse.trim());
+        utilisateur.setRole(role.trim());
+
         return utilisateurDAO.mettreAJour(utilisateur);
     }
 
@@ -60,36 +67,36 @@ public class UtilisateurService {
         return utilisateurDAO.supprimer(id);
     }
 
-    // Récupérer un utilisateur par ID
+    // Obtenir un utilisateur par ID
     public Utilisateur obtenirUtilisateurParId(int id) {
         return utilisateurDAO.obtenirParId(id);
     }
 
-    // Authentifier un utilisateur
+    // Authentifier un utilisateur (connexion)
     public Utilisateur authentifierUtilisateur(String email, String motDePasse) {
-        Utilisateur utilisateur = utilisateurDAO.authentifier(email, motDePasse);
+        Utilisateur utilisateur = utilisateurDAO.authentifier(email.trim(), motDePasse.trim());
         if (utilisateur == null) {
             System.out.println("Email ou mot de passe incorrect !");
         }
         return utilisateur;
     }
 
-    // Récupérer tous les utilisateurs
+    // Obtenir tous les utilisateurs
     public List<Utilisateur> obtenirTousLesUtilisateurs() {
         return utilisateurDAO.obtenirTous();
     }
 
-    // Récupérer les clients uniquement
+    // Obtenir les clients uniquement
     public List<Utilisateur> obtenirClients() {
         return utilisateurDAO.obtenirParRole("Client");
     }
 
-    // Récupérer les livreurs uniquement
+    // Obtenir les livreurs uniquement
     public List<Utilisateur> obtenirLivreurs() {
         return utilisateurDAO.obtenirParRole("Livreur");
     }
 
-    // Récupérer les administrateurs uniquement
+    // Obtenir les administrateurs uniquement
     public List<Utilisateur> obtenirAdministrateurs() {
         return utilisateurDAO.obtenirParRole("Admin");
     }
