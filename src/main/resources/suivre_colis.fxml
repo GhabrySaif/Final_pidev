@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controllers.client.SuivreColisController"
+      spacing="15.0" padding="20">
+
+    <Label text="Suivre un Colis" styleClass="title-label" />
+
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Numéro de suivi :" />
+        <TextField fx:id="numeroSuiviField" promptText="Entrez le numéro de suivi" prefWidth="300" />
+        <Button fx:id="rechercherButton" text="Rechercher" onAction="#handleRechercher" />
+    </HBox>
+
+    <VBox fx:id="resultatContainer" spacing="15" visible="false">
+
+        <VBox spacing="10" styleClass="info-box">
+            <Label text="Informations du colis" styleClass="section-label" />
+            <GridPane hgap="15" vgap="8">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="120" hgrow="NEVER" />
+                    <ColumnConstraints hgrow="ALWAYS" />
+                </columnConstraints>
+                <Label text="Numéro :" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="label-bold" />
+                <Label fx:id="numeroLabel" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                <Label text="Destinataire :" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="label-bold" />
+                <Label fx:id="destinataireLabel" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label text="Adresse :" GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="label-bold" />
+                <Label fx:id="adresseLabel" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <Label text="Statut actuel :" GridPane.columnIndex="0" GridPane.rowIndex="3" styleClass="label-bold" />
+                <Label fx:id="statutLabel" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <Label text="Date création :" GridPane.columnIndex="0" GridPane.rowIndex="4" styleClass="label-bold" />
+                <Label fx:id="dateCreationLabel" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            </GridPane>
+        </VBox>
+
+        <VBox spacing="10" styleClass="info-box">
+            <Label text="Historique de suivi" styleClass="section-label" />
+            <TableView fx:id="historiqueTableView" VBox.vgrow="ALWAYS" prefHeight="200">
+                <columns>
+                    <TableColumn fx:id="dateColumn" text="Date" prefWidth="150" />
+                    <TableColumn fx:id="statutHistoriqueColumn" text="Statut" prefWidth="120" />
+                    <TableColumn fx:id="localisationColumn" text="Localisation" prefWidth="150" />
+                    <TableColumn fx:id="commentaireColumn" text="Commentaire" prefWidth="200" />
+                </columns>
+            </TableView>
+        </VBox>
+
+        <VBox spacing="10" styleClass="info-box">
+            <Label text="Localisation actuelle" styleClass="section-label" />
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="Position :" styleClass="label-bold" />
+                <Label fx:id="localisationActuelleLabel" />
+                <Button fx:id="voirCarteButton" text="Voir sur la carte" onAction="#handleVoirCarte" />
+            </HBox>
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="Dernière mise à jour :" styleClass="label-bold" />
+                <Label fx:id="derniereMajLabel" />
+                <Button fx:id="actualiserButton" text="Actualiser" onAction="#handleActualiser" />
+            </HBox>
+        </VBox>
+
+        <VBox spacing="10" styleClass="info-box">
+            <Label text="Notifications" styleClass="section-label" />
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <CheckBox fx:id="notificationEmailCheckBox" text="Recevoir les notifications par email" />
+                <CheckBox fx:id="notificationSmsCheckBox" text="Recevoir les notifications par SMS" />
+            </HBox>
+            <Button fx:id="sauvegarderNotificationsButton" text="Sauvegarder les préférences" onAction="#handleSauvegarderNotifications" />
+        </VBox>
+    </VBox>
+
+    <Label fx:id="messageLabel" text="" styleClass="message-label" visible="false" />
+</VBox>

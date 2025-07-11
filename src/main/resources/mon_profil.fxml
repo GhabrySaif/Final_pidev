@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.client.MonProfilController"
+            fitToWidth="true">
+
+    <VBox spacing="20" padding="20">
+
+        <Label text="Mon Profil" styleClass="title-label" />
+
+        <VBox spacing="15" styleClass="info-box">
+            <Label text="Informations personnelles" styleClass="section-label" />
+            <GridPane hgap="15" vgap="10">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="120" hgrow="NEVER" />
+                    <ColumnConstraints hgrow="ALWAYS" />
+                </columnConstraints>
+
+                <Label text="Nom :" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <TextField fx:id="nomField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                <Label text="Prénom :" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <TextField fx:id="prenomField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                <Label text="Email :" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                <Label text="Téléphone :" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                <TextField fx:id="telephoneField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+                <Label text="Date de naissance :" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                <DatePicker fx:id="dateNaissancePicker" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            </GridPane>
+
+            <HBox spacing="10" alignment="CENTER_LEFT" padding="10 0 0 0">
+                <Button fx:id="modifierInfosButton" text="Modifier les informations" onAction="#handleModifierInfos" />
+                <Button fx:id="sauvegarderInfosButton" text="Sauvegarder" onAction="#handleSauvegarderInfos" visible="false" />
+                <Button fx:id="annulerInfosButton" text="Annuler" onAction="#handleAnnulerInfos" visible="false" />
+            </HBox>
+        </VBox>
+
+        <VBox spacing="15" styleClass="info-box">
+            <Label text="Adresse principale" styleClass="section-label" />
+            <GridPane hgap="15" vgap="10">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="120" hgrow="NEVER" />
+                    <ColumnConstraints hgrow="ALWAYS" />
+                </columnConstraints>
+
+                <Label text="Adresse :" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <TextField fx:id="adresseField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                <Label text="Ville :" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <TextField fx:id="villeField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                <Label text="Code postal :" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <TextField fx:id="codePostalField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                <Label text="Pays :" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                <TextField fx:id="paysField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            </GridPane>
+
+            <HBox spacing="10" alignment="CENTER_LEFT" padding="10 0 0 0">
+                <Button fx:id="modifierAdresseButton" text="Modifier l'adresse" onAction="#handleModifierAdresse" />
+                <Button fx:id="sauvegarderAdresseButton" text="Sauvegarder" onAction="#handleSauvegarderAdresse" visible="false" />
+                <Button fx:id="annulerAdresseButton" text="Annuler" onAction="#handleAnnulerAdresse" visible="false" />
+            </HBox>
+        </VBox>
+
+        <VBox spacing="15" styleClass="info-box">
+            <Label text="Sécurité" styleClass="section-label" />
+            <GridPane hgap="15" vgap="10">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="120" hgrow="NEVER" />
+                    <ColumnConstraints hgrow="ALWAYS" />
+                </columnConstraints>
+
+                <Label text="Mot de passe actuel :" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <PasswordField fx:id="motDePasseActuelField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                <Label text="Nouveau mot de passe :" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <PasswordField fx:id="nouveauMotDePasseField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                <Label text="Confirmer le mot de passe :" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <PasswordField fx:id="confirmerMotDePasseField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            </GridPane>
+
+            <Button fx:id="changerMotDePasseButton" text="Changer le mot de passe" onAction="#handleChangerMotDePasse" />
+        </VBox>
+
+        <VBox spacing="15" styleClass="info-box">
+            <Label text="Préférences de notification" styleClass="section-label" />
+            <VBox spacing="10">
+                <CheckBox fx:id="notificationEmailCheckBox" text="Recevoir les notifications par email" />
+                <CheckBox fx:id="notificationSmsCheckBox" text="Recevoir les notifications par SMS" />
+                <CheckBox fx:id="notificationPushCheckBox" text="Recevoir les notifications push" />
+                <CheckBox fx:id="newsletterCheckBox" text="Recevoir la newsletter" />
+            </VBox>
+            <Button fx:id="sauvegarderPreferencesButton" text="Sauvegarder les préférences" onAction="#handleSauvegarderPreferences" />
+        </VBox>
+
+        <VBox spacing="15" styleClass="info-box">
+            <Label text="Statistiques du compte" styleClass="section-label" />
+            <GridPane hgap="15" vgap="8">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="180" hgrow="NEVER" />
+                    <ColumnConstraints hgrow="ALWAYS" />
+                </columnConstraints>
+
+                <Label text="Membre depuis :" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="label-bold" />
+                <Label fx:id="membreDepuisLabel" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                <Label text="Nombre de colis envoyés :" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="label-bold" />
+                <Label fx:id="nombreColisLabel" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                <Label text="Dernière connexion :" GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="label-bold" />
+                <Label fx:id="derniereConnexionLabel" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            </GridPane>
+        </VBox>
+
+        <HBox spacing="10" alignment="CENTER_RIGHT">
+            <Button fx:id="exporterDonneesButton" text="Exporter mes données" onAction="#handleExporterDonnees" />
+            <Button fx:id="supprimerCompteButton" text="Supprimer mon compte" onAction="#handleSupprimerCompte" styleClass="danger-button" />
+        </HBox>
+
+    </VBox>
+</ScrollPane>

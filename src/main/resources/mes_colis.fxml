@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controllers.client.MesColisController"
+      spacing="15" padding="20">
+
+    <Label text="Mes Colis" styleClass="title-label" />
+
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <TextField fx:id="searchField" promptText="Rechercher un colis..." prefWidth="300" />
+        <Button fx:id="searchButton" text="Rechercher" onAction="#handleSearch" />
+        <Button fx:id="refreshButton" text="Actualiser" onAction="#handleRefresh" />
+    </HBox>
+
+    <TableView fx:id="colisTableView" VBox.vgrow="ALWAYS" prefHeight="400">
+        <columns>
+            <TableColumn fx:id="numeroColisColumn" text="Numéro" prefWidth="100" />
+            <TableColumn fx:id="destinataireColumn" text="Destinataire" prefWidth="150" />
+            <TableColumn fx:id="adresseColumn" text="Adresse" prefWidth="200" />
+            <TableColumn fx:id="statutColumn" text="Statut" prefWidth="100" />
+            <TableColumn fx:id="dateCreationColumn" text="Date création" prefWidth="120" />
+            <TableColumn fx:id="dateModificationColumn" text="Dernière MAJ" prefWidth="120" />
+        </columns>
+    </TableView>
+
+    <HBox spacing="10" alignment="CENTER_LEFT" padding="10 0 0 0">
+        <Button fx:id="voirDetailsButton" text="Voir détails" onAction="#handleVoirDetails" />
+        <Button fx:id="modifierButton" text="Modifier" onAction="#handleModifier" />
+        <Button fx:id="supprimerButton" text="Supprimer" onAction="#handleSupprimer" />
+    </HBox>
+</VBox>

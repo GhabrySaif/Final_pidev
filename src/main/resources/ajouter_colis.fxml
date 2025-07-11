@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controllers.client.AjouterColisController"
+      spacing="15" padding="20">
+
+    <Label text="Ajouter un Colis" styleClass="title-label" />
+
+    <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
+        <VBox spacing="15" padding="10">
+
+            <VBox spacing="5">
+                <Label text="Informations du destinataire" styleClass="section-label" />
+
+                <GridPane hgap="10" vgap="10">
+                    <columnConstraints>
+                        <ColumnConstraints minWidth="120" hgrow="NEVER" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                    </columnConstraints>
+
+                    <Label text="Nom :" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                    <TextField fx:id="nomField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                    <Label text="Prénom :" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                    <TextField fx:id="prenomField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                    <Label text="Téléphone :" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                    <TextField fx:id="telephoneField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                    <Label text="Email :" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                    <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                </GridPane>
+            </VBox>
+
+            <VBox spacing="5">
+                <Label text="Adresse de livraison" styleClass="section-label" />
+
+                <GridPane hgap="10" vgap="10">
+                    <columnConstraints>
+                        <ColumnConstraints minWidth="120" hgrow="NEVER" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                    </columnConstraints>
+
+                    <Label text="Adresse :" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                    <TextField fx:id="adresseField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                    <Label text="Ville :" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                    <TextField fx:id="villeField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                    <Label text="Code postal :" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                    <TextField fx:id="codePostalField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                    <Label text="Pays :" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                    <TextField fx:id="paysField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                </GridPane>
+            </VBox>
+
+            <VBox spacing="5">
+                <Label text="Détails du colis" styleClass="section-label" />
+
+                <GridPane hgap="10" vgap="10">
+                    <columnConstraints>
+                        <ColumnConstraints minWidth="120" hgrow="NEVER" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                    </columnConstraints>
+
+                    <Label text="Poids (kg) :" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                    <TextField fx:id="poidsField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                    <Label text="Dimensions :" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                    <HBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <TextField fx:id="longueurField" promptText="L" prefWidth="60" />
+                        <Label text="x" />
+                        <TextField fx:id="largeurField" promptText="l" prefWidth="60" />
+                        <Label text="x" />
+                        <TextField fx:id="hauteurField" promptText="h" prefWidth="60" />
+                        <Label text="cm" />
+                    </HBox>
+
+                    <Label text="Type :" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                    <ComboBox fx:id="typeColisComboBox" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                    <Label text="Priorité :" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                    <ComboBox fx:id="prioriteComboBox" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                </GridPane>
+            </VBox>
+
+            <VBox spacing="5">
+                <Label text="Description" styleClass="section-label" />
+                <TextArea fx:id="descriptionArea" prefRowCount="3" />
+            </VBox>
+        </VBox>
+    </ScrollPane>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT" padding="15 0 0 0">
+        <Button fx:id="annulerButton" text="Annuler" onAction="#handleAnnuler" />
+        <Button fx:id="ajouterButton" text="Ajouter" onAction="#handleAjouter" styleClass="primary-button" />
+    </HBox>
+</VBox>
